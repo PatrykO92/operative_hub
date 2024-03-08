@@ -34,6 +34,7 @@ export async function removeOrderById(id) {
 
   if (error) {
     console.error("Error removing record:", error.message);
+    throw new Error("Order could not be added.");
   }
 
   return data;

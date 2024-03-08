@@ -55,21 +55,21 @@ export default function MainNav() {
         <li>
           <StyledNavLink to="/dashboard">
             <MdHome />
-            <span>Home</span>
+            <span>Startseite</span>
           </StyledNavLink>
         </li>
 
         <li>
           <StyledNavLink to="/trucks_loading">
             <FaTruck />
-            <span>Trucks loading</span>
+            <span>LKWs laden</span>
           </StyledNavLink>
         </li>
 
         <li>
           <StyledNavLink to="/settings">
             <IoMdSettings />
-            <span>Settings</span>
+            <span>Einstellungen</span>
           </StyledNavLink>
         </li>
       </NavList>
