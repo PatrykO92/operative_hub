@@ -7,7 +7,7 @@ export async function getOrdersList() {
 
   if (error) {
     console.error(error);
-    throw new Error("Orders list could not be loaded");
+    throw new Error("Die Bestellliste konnte nicht geladen werden");
   }
 
   return orders_list;
@@ -20,7 +20,7 @@ export async function addOrderToList(formData) {
 
   if (error) {
     console.error("Error adding row:", error.message);
-    throw new Error("Order could not be added.");
+    throw new Error("Bestellung konnte nicht hinzugefügt werden");
   }
 
   return newOrder;
@@ -34,7 +34,7 @@ export async function removeOrderById(id) {
 
   if (error) {
     console.error("Error removing record:", error.message);
-    throw new Error("Order could not be added.");
+    throw new Error("Bestellung konnte nicht entfernt werden");
   }
 
   return data;

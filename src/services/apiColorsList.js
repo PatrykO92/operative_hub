@@ -7,10 +7,39 @@ export async function getColorsList() {
 
   if (error) {
     console.error(error);
-    throw new Error("Colors list could not be loaded");
+    throw new Error("Die Farbliste konnte nicht geladen werden");
   }
 
   return colors_list;
+}
+
+export async function getAllAvailableColorsList() {
+  const { data: colors_list, error } = await supabase
+    .from("all_colors")
+    .select("*")
+    .eq("available", true);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Die Farbliste konnte nicht geladen werden");
+  }
+
+  return colors_list;
+}
+
+export async function setColorStatus(id, status) {
+  const { data: color, error } = await supabase
+    .from("all_colors")
+    .update({ available: status })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Problem mit sich ändernder Farbverfügbarkeit");
+  }
+
+  return color;
 }
 
 export async function getColorById(color_id) {
@@ -22,7 +51,7 @@ export async function getColorById(color_id) {
 
   if (error) {
     console.error(error);
-    throw new Error("Color could not be loaded");
+    throw new Error("Farbe konnte nicht geladen werden");
   }
 
   return color;
@@ -35,7 +64,7 @@ export async function addColorToList(formData) {
 
   if (error) {
     console.error("Error adding row:", error.message);
-    throw new Error("Color could not be added.");
+    throw new Error("Farbe konnte nicht hinzugefügt werden");
   }
 
   return newColor;
@@ -49,7 +78,7 @@ export async function removeColorById(id) {
 
   if (error) {
     console.error("Error removing record:", error.message);
-    throw new Error("Color could not be removed.");
+    throw new Error("Farbe konnte nicht entfernt werden");
   }
 
   return data;

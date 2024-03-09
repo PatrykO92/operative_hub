@@ -13,6 +13,15 @@ const StyledAppLayout = styled.div`
 
 const Main = styled.main`
   padding: 2rem;
+  overflow: scroll;
+`;
+
+const Container = styled.div`
+  max-width: 200rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
 export default function AppLayout() {
@@ -21,7 +30,9 @@ export default function AppLayout() {
       <Header />
       <Sidebar />
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </StyledAppLayout>
   );

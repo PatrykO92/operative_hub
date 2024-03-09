@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Spinner from "../../ui/Spinner";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { removeOrderById } from "../../services/apiOrdersList";
-import { getColorById } from "../../services/apiColorsList";
+import { getColorById, setColorStatus } from "../../services/apiColorsList";
 import CircleColor from "../../ui/CircleColor";
+import toast from "react-hot-toast";
 
 const TableRow = styled.div`
   display: grid;
@@ -38,19 +39,40 @@ function OrderRow({ order }) {
     construction_site,
     packed_extra,
     project_date,
-    project_numer,
+    project_number,
     truck_loaded,
     truck_side_nr,
   } = order;
 
+  const queryClient = useQueryClient();
+
+  const { mutate: mutateColor } = useMutation({
+    mutationFn: () => setColorStatus(color_id, true),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["colors"] });
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
   const { isLoading: isDeleting, mutate } = useMutation({
     queryKey: ["orders"],
     mutationFn: (id) => removeOrderById(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      mutateColor();
+      toast.success("Bestellung erfolgreich gelöscht");
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
   });
 
-  const { isLoading, data: color } = useQuery({
-    queryKey: ["colors"],
+  const { isLoading, data: fetchedColor } = useQuery({
+    queryKey: [color_id],
     queryFn: () => getColorById(color_id),
+    onError: (err) => {
+      toast.error(err.message);
+    },
   });
 
   if (isLoading) return <Spinner />;
@@ -58,7 +80,7 @@ function OrderRow({ order }) {
   return (
     <>
       <TableRow role="row">
-        <Cell>{project_numer}</Cell>
+        <Cell>{project_number}</Cell>
         <Cell>{truck_side_nr}</Cell>
         <Cell>{client_name}</Cell>
         <Cell>{construction_site}</Cell>
@@ -66,8 +88,8 @@ function OrderRow({ order }) {
         <Cell>{packed_extra ? "Ja" : "Nein"}</Cell>
         <Cell>
           <CircleColor
-            $main={color.main_color}
-            $secondary={color.secondary_color}
+            $main={fetchedColor.main_color}
+            $secondary={fetchedColor.secondary_color}
           />
         </Cell>
         <Cell>{truck_loaded ? "Ja" : "Nein"}</Cell>
