@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-const SquareColor = styled.div`
+const SquareColor = styled.div.attrs((props) => ({
+  style: {
+    backgroundColor: props.$main,
+    borderColor: props.$secondary,
+  },
+}))`
   width: 4rem;
   height: 4rem;
   border-width: 1rem;
   border-style: solid;
-  background-color: ${({ $main }) => $main};
-  border-color: ${({ $secondary }) => $secondary};
   outline: 1px solid var(--color-grey-400);
+  border-radius: var(--border-radius-sm);
 `;
 
 export default SquareColor;

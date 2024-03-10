@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 import { HiPencil, HiTrash } from "react-icons/hi2";
-import CircleColor from "../../ui/CircleColor";
 import { useState } from "react";
 import CreateEditOrderForm from "./OrderForm";
 import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
 import { useDeleteOrder } from "./useDeleteOrder";
+import SquareColor from "../../ui/SquareColor";
 
 const TableRow = styled.div`
   display: grid;
@@ -63,7 +63,7 @@ function OrderRow({ order }) {
         <Cell>{project_date}</Cell>
         <Cell>{packed_extra ? "Ja" : "Nein"}</Cell>
         <Cell>
-          <CircleColor
+          <SquareColor
             $main={fetchedColor.main_color}
             $secondary={fetchedColor.secondary_color}
           />

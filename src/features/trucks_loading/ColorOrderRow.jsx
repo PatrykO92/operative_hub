@@ -2,17 +2,11 @@ import Error from "../../ui/FormRow";
 import Select from "../../ui/Select";
 import SpinnerMini from "../../ui/SpinnerMini";
 import Option from "../../ui/Option";
-import { getAllAvailableColorsList } from "../../services/apiColorsList";
-import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import FormRow, { Label } from "../../ui/FormRow";
+import useGetAvailableColorsList from "../../hooks/useGetAvailableColorsList";
 
 export default function ColorOrderRow({ register, errors, isEditSession }) {
-  const { data: colors, isLoading: colorsLoading } = useQuery({
-    queryKey: ["colors"],
-    queryFn: getAllAvailableColorsList,
-    onError: (err) => toast.error(err.message),
-  });
+  const { availableColors, colorsLoading } = useGetAvailableColorsList();
 
   if (isEditSession)
     return (
@@ -35,7 +29,7 @@ export default function ColorOrderRow({ register, errors, isEditSession }) {
               required: isEditSession ? false : "Dieses Feld ist erforderlich",
             })}
           >
-            {colors.map((color) => (
+            {availableColors.map((color) => (
               <Option key={color.id} value={color.id}>
                 Quantität: {color.quantity}
               </Option>
