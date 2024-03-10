@@ -3,49 +3,65 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addOrderToList } from "../../services/apiOrdersList";
-import toast from "react-hot-toast";
-import { setColorStatus } from "../../services/apiColorsList";
 import ColorOrderRow from "./ColorOrderRow";
+import { useChangeColorStatus } from "../../hooks/useChangeColor";
+import { useEditOrder } from "./useEditOrder";
+import { useCreateOrder } from "./useCreateOrder";
 
-function CreateOrderForm() {
-  const queryClient = useQueryClient();
-  const { register, handleSubmit, reset, formState, getValues } = useForm();
+function CreateEditOrderForm({ orderToEdit = {} }) {
+  const { id: editId, ...editValues } = orderToEdit;
+
+  const isEditSession = Boolean(editId);
+
+  const { changeColor } = useChangeColorStatus();
+  const { createOrder, isCreating } = useCreateOrder();
+  const { editOrder, isEditing } = useEditOrder();
+
+  const { register, handleSubmit, reset, formState, getValues } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
+
   const { errors } = formState;
 
-  const { mutate, isLoading: isCreating } = useMutation({
-    mutationFn: addOrderToList,
-    onSuccess: () => {
-      toast.success("Neue Bestellung erfolgreich hinzugefügt");
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
-      const colorId = getValues("color");
-      mutateColor(colorId);
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  function onSubmit(formData) {
+    if (isEditSession) {
+      editOrder(
+        { formData, editId },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
+    }
 
-  const { mutate: mutateColor } = useMutation({
-    mutationFn: (id) => setColorStatus(id, false),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["colors"] });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+    if (!isEditSession) {
+      createOrder(
+        { formData },
+        {
+          onSuccess: () => {
+            const color_id = getValues("color");
+            changeColor({ color_id, status: false });
 
-  function onSubmit(data) {
-    mutate(data);
+            reset();
+          },
+        }
+      );
+    }
   }
 
   function onError() {
     // console.log(errors);
   }
 
+  const isWorking = isEditing || isCreating;
+
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label={"Projekt"} error={errors?.project_number?.message}>
         <Input
+          placeholder="z.B. 2224"
+          disabled={isWorking}
           type="number"
           id="project_number"
           {...register("project_number", {
@@ -56,6 +72,8 @@ function CreateOrderForm() {
 
       <FormRow label={"Fuhre"} error={errors?.truck_side_nr?.message}>
         <Input
+          placeholder="z.B. 19637"
+          disabled={isWorking}
           type="number"
           id="truck_side_nr"
           {...register("truck_side_nr", {
@@ -66,6 +84,8 @@ function CreateOrderForm() {
 
       <FormRow label={"Klient"} error={errors?.client_name?.message}>
         <Input
+          placeholder="z.B. Pfister GmbH"
+          disabled={isWorking}
           type="text"
           id="client_name"
           {...register("client_name", {
@@ -79,6 +99,8 @@ function CreateOrderForm() {
         error={errors?.construction_site?.message}
       >
         <Input
+          placeholder="z.B. Wipfeld - Uniper"
+          disabled={isWorking}
           type="text"
           id="construction_site"
           {...register("construction_site", {
@@ -89,6 +111,8 @@ function CreateOrderForm() {
 
       <FormRow label={"Datum"} error={errors?.project_date?.message}>
         <Input
+          placeholder="z.B. 02.11.2023"
+          disabled={isWorking}
           type="date"
           id="project_date"
           {...register("project_date", {
@@ -99,16 +123,22 @@ function CreateOrderForm() {
 
       <FormRow label={"Extra"}>
         <Input
+          disabled={isWorking}
           type="checkbox"
           id="packed_extra"
           {...register("packed_extra")}
         />
       </FormRow>
 
-      <ColorOrderRow register={register} errors={errors} />
+      <ColorOrderRow
+        register={register}
+        errors={errors}
+        isEditSession={isEditSession}
+      />
 
       <FormRow label={"Geladen"}>
         <Input
+          disabled={isWorking}
           type="checkbox"
           id="truck_loaded"
           {...register("truck_loaded")}
@@ -116,15 +146,17 @@ function CreateOrderForm() {
       </FormRow>
 
       <FormRow>
-        <Button $variation="secondary" type="reset">
+        <Button disabled={isWorking} $variation="secondary" type="reset">
           Stornieren
         </Button>
-        <Button type="submit" disabled={isCreating}>
-          Bestellung abschicken
+        <Button disabled={isWorking} type="submit">
+          {isEditSession
+            ? "eine Bestellung bearbeiten"
+            : "Erstellen Sie eine neue Bestellung"}
         </Button>
       </FormRow>
     </Form>
   );
 }
 
-export default CreateOrderForm;
+export default CreateEditOrderForm;

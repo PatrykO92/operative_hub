@@ -7,12 +7,20 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import FormRow, { Label } from "../../ui/FormRow";
 
-export default function ColorOrderRow({ register, errors }) {
+export default function ColorOrderRow({ register, errors, isEditSession }) {
   const { data: colors, isLoading: colorsLoading } = useQuery({
     queryKey: ["colors"],
     queryFn: getAllAvailableColorsList,
     onError: (err) => toast.error(err.message),
   });
+
+  if (isEditSession)
+    return (
+      <FormRow>
+        <Label htmlFor="color">Farbe</Label>
+        <div>Die Farbe kann nicht geändert werden</div>
+      </FormRow>
+    );
 
   return (
     <FormRow>
@@ -24,7 +32,7 @@ export default function ColorOrderRow({ register, errors }) {
           <Select
             id="color"
             {...register("color", {
-              required: "Dieses Feld ist erforderlich",
+              required: isEditSession ? false : "Dieses Feld ist erforderlich",
             })}
           >
             {colors.map((color) => (

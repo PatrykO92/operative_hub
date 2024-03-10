@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 import { HiPencil, HiTrash } from "react-icons/hi2";
-import Spinner from "../../ui/Spinner";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { removeOrderById } from "../../services/apiOrdersList";
-import { getColorById, setColorStatus } from "../../services/apiColorsList";
 import CircleColor from "../../ui/CircleColor";
-import toast from "react-hot-toast";
+import { useState } from "react";
+import CreateEditOrderForm from "./OrderForm";
+import { useChangeColorStatus } from "../../hooks/useChangeColor";
+import SpinnerMini from "../../ui/SpinnerMini";
+import { useGetColorById } from "../../hooks/useGetColorById";
+import { useDeleteOrder } from "./useDeleteOrder";
 
 const TableRow = styled.div`
   display: grid;
@@ -44,38 +45,13 @@ function OrderRow({ order }) {
     truck_side_nr,
   } = order;
 
-  const queryClient = useQueryClient();
+  const [showForm, setShowForm] = useState(false);
 
-  const { mutate: mutateColor } = useMutation({
-    mutationFn: () => setColorStatus(color_id, true),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["colors"] });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { changeColor } = useChangeColorStatus();
+  const { isLoadingColor, fetchedColor } = useGetColorById(color_id);
+  const { isDeletingOrder, deleteOrder } = useDeleteOrder();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    queryKey: ["orders"],
-    mutationFn: (id) => removeOrderById(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
-      mutateColor();
-      toast.success("Bestellung erfolgreich gelöscht");
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-
-  const { isLoading, data: fetchedColor } = useQuery({
-    queryKey: [color_id],
-    queryFn: () => getColorById(color_id),
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-
-  if (isLoading) return <Spinner />;
+  if (isLoadingColor) return <SpinnerMini />;
 
   return (
     <>
@@ -94,14 +70,24 @@ function OrderRow({ order }) {
         </Cell>
         <Cell>{truck_loaded ? "Ja" : "Nein"}</Cell>
         <div>
-          <button>
+          <button onClick={() => setShowForm((oldVal) => !oldVal)}>
             <HiPencil />
           </button>
-          <button onClick={() => mutate(order_id)} disabled={isDeleting}>
+          <button
+            onClick={() => {
+              deleteOrder(order_id, {
+                onSuccess: () => {
+                  changeColor({ color_id, status: true });
+                },
+              });
+            }}
+            disabled={isDeletingOrder}
+          >
             <HiTrash />
           </button>
         </div>
       </TableRow>
+      {showForm && <CreateEditOrderForm orderToEdit={order} />}
     </>
   );
 }

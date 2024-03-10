@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
-import { getOrdersList } from "../../services/apiOrdersList";
 import Spinner from "../../ui/Spinner";
 import OrderRow from "./OrderRow";
+import { useGetOrdersList } from "./useGetOrdersList";
+import ErrorFallback from "../../ui/ErrorFallback";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -29,12 +29,11 @@ const TableHeader = styled.header`
 `;
 
 export default function OrdersTable() {
-  const { isLoading, data: orders } = useQuery({
-    queryKey: ["orders"],
-    queryFn: getOrdersList,
-  });
+  const { isLoadingOrders, orders, orderListError } = useGetOrdersList();
 
-  if (isLoading) return <Spinner />;
+  if (isLoadingOrders) return <Spinner />;
+
+  if (orderListError) return <ErrorFallback>Problem jakiś!</ErrorFallback>;
 
   return (
     <Table role="table">

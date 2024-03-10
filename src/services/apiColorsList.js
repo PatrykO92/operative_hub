@@ -27,11 +27,11 @@ export async function getAllAvailableColorsList() {
   return colors_list;
 }
 
-export async function setColorStatus(id, status) {
+export async function setColorStatus({ color_id, status }) {
   const { data: color, error } = await supabase
     .from("all_colors")
     .update({ available: status })
-    .eq("id", id)
+    .eq("id", color_id)
     .select();
 
   if (error) {

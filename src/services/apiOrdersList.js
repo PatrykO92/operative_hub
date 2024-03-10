@@ -13,7 +13,8 @@ export async function getOrdersList() {
   return orders_list;
 }
 
-export async function addOrderToList(formData) {
+export async function addOrderToList({ formData }) {
+  console.log(formData);
   const { data: newOrder, error } = await supabase
     .from("orders_list")
     .insert([formData]);
@@ -24,6 +25,21 @@ export async function addOrderToList(formData) {
   }
 
   return newOrder;
+}
+
+export async function editOrderApi({ formData, editId }) {
+  console.log("edit:", formData, editId);
+  const { data: editedOrder, error } = await supabase
+    .from("orders_list")
+    .update({ ...formData })
+    .eq("id", editId);
+
+  if (error) {
+    console.error("Error editing row:", error.message);
+    throw new Error("Problem beim Bearbeiten der Bestellung");
+  }
+
+  return editedOrder;
 }
 
 export async function removeOrderById(id) {
