@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 import { HiPencil, HiTrash } from "react-icons/hi2";
-import { useState } from "react";
 import CreateEditOrderForm from "./OrderForm";
 import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
 import { useDeleteOrder } from "./useDeleteOrder";
 import SquareColor from "../../ui/SquareColor";
+import Modal from "../../ui/Modal";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,8 +45,6 @@ function OrderRow({ order }) {
     truck_side_nr,
   } = order;
 
-  const [showForm, setShowForm] = useState(false);
-
   const { changeColor } = useChangeColorStatus();
   const { isLoadingColor, fetchedColor } = useGetColorById(color_id);
   const { isDeletingOrder, deleteOrder } = useDeleteOrder();
@@ -70,9 +68,16 @@ function OrderRow({ order }) {
         </Cell>
         <Cell>{truck_loaded ? "Ja" : "Nein"}</Cell>
         <div>
-          <button onClick={() => setShowForm((oldVal) => !oldVal)}>
-            <HiPencil />
-          </button>
+          <Modal>
+            <Modal.Open opens="edit-window">
+              <button>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="edit-window">
+              <CreateEditOrderForm orderToEdit={order} />
+            </Modal.Window>
+          </Modal>
           <button
             onClick={() => {
               deleteOrder(order_id, {
@@ -87,7 +92,6 @@ function OrderRow({ order }) {
           </button>
         </div>
       </TableRow>
-      {showForm && <CreateEditOrderForm orderToEdit={order} />}
     </>
   );
 }

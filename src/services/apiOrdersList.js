@@ -14,7 +14,6 @@ export async function getOrdersList() {
 }
 
 export async function addOrderToList({ formData }) {
-  console.log(formData);
   const { data: newOrder, error } = await supabase
     .from("orders_list")
     .insert([formData]);
@@ -28,7 +27,6 @@ export async function addOrderToList({ formData }) {
 }
 
 export async function editOrderApi({ formData, editId }) {
-  console.log("edit:", formData, editId);
   const { data: editedOrder, error } = await supabase
     .from("orders_list")
     .update({ ...formData })

@@ -21,27 +21,25 @@ const StyledColorPicker = styled.div`
 
 const ColorPicker = () => {
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
-  const [colorMain, setColorMain] = useState("#000000");
-  const [colorSecondary, setColorSecondary] = useState("#000000");
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
   const { addNewColor, isCreating } = useAddNewColor();
 
-  const handleColorMainChange = (event) => {
-    const newColor = event.target.value;
-    setColorMain(newColor);
-    setColorSecondary(newColor); // Update colorSecondary to match colorMain
-  };
+  const mainColor = watch("main_color");
+  const secondaryColor = watch("secondary_color");
 
-  const handleColorSecondaryChange = (event) => {
-    setColorSecondary(event.target.value);
+  const handleMainColorChange = (e) => {
+    const color = e.target.value;
+    setValue("main_color", color);
+    setValue("secondary_color", color);
   };
 
   const onSubmit = (data) => {
-    addNewColor(data);
-    setColorMain("#000000");
-    setColorSecondary("#000000");
-    reset();
-    setShowColorPicker(false);
+    addNewColor(data, {
+      onSuccess: () => {
+        reset();
+        setShowColorPicker(false);
+      },
+    });
   };
 
   return (
@@ -53,7 +51,7 @@ const ColorPicker = () => {
       {showColorPicker && (
         <>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <SquareColor $main={colorMain} $secondary={colorSecondary} />
+            <SquareColor $main={mainColor} $secondary={secondaryColor} />
 
             <FormRow label="Hauptfarbe">
               <ColorInput
@@ -61,8 +59,7 @@ const ColorPicker = () => {
                 type="color"
                 id="main_color"
                 {...register("main_color")}
-                value={colorMain}
-                onChange={handleColorMainChange}
+                onChange={handleMainColorChange}
               />
             </FormRow>
 
@@ -72,8 +69,6 @@ const ColorPicker = () => {
                 type="color"
                 id="secondary_color"
                 {...register("secondary_color")}
-                value={colorSecondary}
-                onChange={handleColorSecondaryChange}
               />
             </FormRow>
 

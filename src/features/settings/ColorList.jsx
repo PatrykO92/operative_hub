@@ -20,7 +20,7 @@ const StyledColorList = styled.div`
   padding: 1rem;
 `;
 
-const Box = styled.div`
+const StyledBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,9 +39,8 @@ const Box = styled.div`
 
 export default function ColorList() {
   const [showColorList, setShowColorList] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
+
   const { colors, colorsLoading } = useGetColors();
-  const { removeColor, isDeleting } = useRemoveColorById();
 
   if (colorsLoading) return <Spinner />;
 
@@ -53,30 +52,30 @@ export default function ColorList() {
 
       {showColorList && (
         <StyledColorList>
-          {colors.map((color) => {
-            return (
-              <Box
-                key={color.id}
-                onClick={() => setShowOptions((oldVal) => !oldVal)}
-              >
-                <SquareColor
-                  $main={color.main_color}
-                  $secondary={color.secondary_color}
-                />
-                Quantität: {color.quantity}
-                {showOptions && (
-                  <button
-                    onClick={() => removeColor(color.id)}
-                    disabled={isDeleting}
-                  >
-                    <HiTrash />
-                  </button>
-                )}
-              </Box>
-            );
-          })}
+          {colors.map((color) => (
+            <Box key={color.id} color={color} />
+          ))}
         </StyledColorList>
       )}
     </Container>
+  );
+}
+
+function Box({ color }) {
+  const { removeColor, isDeleting } = useRemoveColorById();
+  const [showOptions, setShowOptions] = useState(false);
+  return (
+    <StyledBox onClick={() => setShowOptions((oldVal) => !oldVal)}>
+      <SquareColor
+        $main={color.main_color}
+        $secondary={color.secondary_color}
+      />
+      Quantität: {color.quantity}
+      {showOptions && (
+        <button onClick={() => removeColor(color.id)} disabled={isDeleting}>
+          <HiTrash />
+        </button>
+      )}
+    </StyledBox>
   );
 }

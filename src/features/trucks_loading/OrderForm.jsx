@@ -8,7 +8,7 @@ import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import { useEditOrder } from "./useEditOrder";
 import { useCreateOrder } from "./useCreateOrder";
 
-function CreateEditOrderForm({ orderToEdit = {} }) {
+function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = orderToEdit;
 
   const isEditSession = Boolean(editId);
@@ -42,8 +42,8 @@ function CreateEditOrderForm({ orderToEdit = {} }) {
           onSuccess: () => {
             const color_id = getValues("color");
             changeColor({ color_id, status: false });
-
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -57,7 +57,10 @@ function CreateEditOrderForm({ orderToEdit = {} }) {
   const isWorking = isEditing || isCreating;
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label={"Projekt"} error={errors?.project_number?.message}>
         <Input
           placeholder="z.B. 2224"
@@ -146,7 +149,12 @@ function CreateEditOrderForm({ orderToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button disabled={isWorking} $variation="secondary" type="reset">
+        <Button
+          disabled={isWorking}
+          $variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Stornieren
         </Button>
         <Button disabled={isWorking} type="submit">
