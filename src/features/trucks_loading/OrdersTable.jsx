@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import OrderRow from "./OrderRow";
 import { useGetOrdersList } from "./useGetOrdersList";
-import ErrorFallback from "../../ui/ErrorFallback";
+import { useSearchParams } from "react-router-dom";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -29,11 +29,22 @@ const TableHeader = styled.header`
 `;
 
 export default function OrdersTable() {
-  const { isLoadingOrders, orders, orderListError } = useGetOrdersList();
+  const { isLoadingOrders, orders } = useGetOrdersList();
+  const [searchParams] = useSearchParams();
+
+  const filterValue = searchParams.get("loaded") || "all";
+
+  let filteredOrders;
+
+  if (filterValue === "all") filteredOrders = orders;
+
+  if (filterValue === "not_loaded")
+    filteredOrders = orders.filter((item) => item.truck_loaded === false);
+
+  if (filterValue === "loaded")
+    filteredOrders = orders.filter((item) => item.truck_loaded === true);
 
   if (isLoadingOrders) return <Spinner />;
-
-  if (orderListError) return <ErrorFallback>Problem jakiś!</ErrorFallback>;
 
   return (
     <Table role="table">
@@ -47,7 +58,7 @@ export default function OrdersTable() {
         <div>Farbe</div>
         <div>Geladen</div>
       </TableHeader>
-      {orders.map((order) => (
+      {filteredOrders.map((order) => (
         <OrderRow order={order} key={order.id} />
       ))}
     </Table>

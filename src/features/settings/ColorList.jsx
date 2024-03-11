@@ -5,7 +5,8 @@ import Heading from "../../ui/Heading";
 import SquareColor from "../../ui/SquareColor";
 import { useState } from "react";
 import { useRemoveColorById } from "./useRemoveColorById";
-import { HiTrash } from "react-icons/hi2";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Container = styled.div`
   background-color: var(--color-grey-200);
@@ -63,19 +64,29 @@ export default function ColorList() {
 
 function Box({ color }) {
   const { removeColor, isDeleting } = useRemoveColorById();
-  const [showOptions, setShowOptions] = useState(false);
   return (
-    <StyledBox onClick={() => setShowOptions((oldVal) => !oldVal)}>
-      <SquareColor
-        $main={color.main_color}
-        $secondary={color.secondary_color}
-      />
-      Quantität: {color.quantity}
-      {showOptions && (
-        <button onClick={() => removeColor(color.id)} disabled={isDeleting}>
-          <HiTrash />
-        </button>
-      )}
-    </StyledBox>
+    <Modal>
+      <Modal.Open opens="delete-color">
+        <StyledBox>
+          <SquareColor
+            $main={color.main_color}
+            $secondary={color.secondary_color}
+          />
+          Quantität: {color.quantity}
+        </StyledBox>
+      </Modal.Open>
+      <Modal.Window name="delete-color">
+        <ConfirmDelete
+          disabled={isDeleting}
+          resource={`Farbe`}
+          onConfirm={() => removeColor(color.id)}
+        >
+          <SquareColor
+            $main={color.main_color}
+            $secondary={color.secondary_color}
+          />
+        </ConfirmDelete>
+      </Modal.Window>
+    </Modal>
   );
 }

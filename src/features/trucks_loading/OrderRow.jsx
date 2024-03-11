@@ -8,6 +8,9 @@ import { useGetColorById } from "../../hooks/useGetColorById";
 import { useDeleteOrder } from "./useDeleteOrder";
 import SquareColor from "../../ui/SquareColor";
 import Modal from "../../ui/Modal";
+// import Button from "../../ui/Button";
+// import Row from "../../ui/Row";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -77,19 +80,26 @@ function OrderRow({ order }) {
             <Modal.Window name="edit-window">
               <CreateEditOrderForm orderToEdit={order} />
             </Modal.Window>
+
+            <Modal.Open opens="delete-window">
+              <button>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete-window">
+              <ConfirmDelete
+                disabled={isDeletingOrder}
+                resource={`${project_number}`}
+                onConfirm={() => {
+                  deleteOrder(order_id, {
+                    onSuccess: () => {
+                      changeColor({ color_id, status: true });
+                    },
+                  });
+                }}
+              />
+            </Modal.Window>
           </Modal>
-          <button
-            onClick={() => {
-              deleteOrder(order_id, {
-                onSuccess: () => {
-                  changeColor({ color_id, status: true });
-                },
-              });
-            }}
-            disabled={isDeletingOrder}
-          >
-            <HiTrash />
-          </button>
         </div>
       </TableRow>
     </>

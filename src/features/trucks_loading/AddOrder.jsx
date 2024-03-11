@@ -4,13 +4,15 @@ import CreateEditOrderForm from "./OrderForm";
 
 export default function AddOrder() {
   return (
-    <Modal>
-      <Modal.Open opens="order-form">
-        <Button>Neue Bestellung hinzufügen</Button>
-      </Modal.Open>
-      <Modal.Window name="order-form">
-        <CreateEditOrderForm />
-      </Modal.Window>
-    </Modal>
+    <div>
+      <Modal>
+        <Modal.Open opens="order-form">
+          <Button>Neue Bestellung hinzufügen</Button>
+        </Modal.Open>
+        <Modal.Window name="order-form">
+          <CreateEditOrderForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   );
 }
