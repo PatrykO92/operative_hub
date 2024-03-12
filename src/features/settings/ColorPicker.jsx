@@ -21,7 +21,12 @@ const StyledColorPicker = styled.div`
 
 const ColorPicker = () => {
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const { register, handleSubmit, reset, watch, setValue } = useForm();
+  const { register, handleSubmit, reset, watch, setValue } = useForm({
+    defaultValues: {
+      main_color: "#000000",
+      secondary_color: "#000000",
+    },
+  });
   const { addNewColor, isCreating } = useAddNewColor();
 
   const mainColor = watch("main_color");

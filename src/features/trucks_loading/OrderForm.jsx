@@ -36,14 +36,20 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
     }
 
     if (!isEditSession) {
-      createOrder(
-        { formData },
+      const color_id = getValues("color");
+      changeColor(
+        { color_id, status: false },
         {
           onSuccess: () => {
-            const color_id = getValues("color");
-            changeColor({ color_id, status: false });
-            reset();
-            onCloseModal?.();
+            createOrder(
+              { formData },
+              {
+                onSuccess: () => {
+                  reset();
+                  onCloseModal?.();
+                },
+              }
+            );
           },
         }
       );

@@ -39,10 +39,10 @@ export default function OrdersTable() {
   if (filterValue === "all") filteredOrders = orders;
 
   if (filterValue === "not_loaded")
-    filteredOrders = orders.filter((item) => item.truck_loaded === false);
+    filteredOrders = orders?.filter((item) => item.truck_loaded === false);
 
   if (filterValue === "loaded")
-    filteredOrders = orders.filter((item) => item.truck_loaded === true);
+    filteredOrders = orders?.filter((item) => item.truck_loaded === true);
 
   if (isLoadingOrders) return <Spinner />;
 
@@ -58,7 +58,7 @@ export default function OrdersTable() {
         <div>Farbe</div>
         <div>Geladen</div>
       </TableHeader>
-      {filteredOrders.map((order) => (
+      {filteredOrders?.map((order) => (
         <OrderRow order={order} key={order.id} />
       ))}
     </Table>
