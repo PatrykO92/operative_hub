@@ -32,19 +32,38 @@ export default function OrdersTable() {
   const { isLoadingOrders, orders } = useGetOrdersList();
   const [searchParams] = useSearchParams();
 
+  if (isLoadingOrders) return <Spinner />;
+
+  // FILTERING
+
   const filterValue = searchParams.get("loaded") || "all";
 
   let filteredOrders;
-
   if (filterValue === "all") filteredOrders = orders;
-
   if (filterValue === "not_loaded")
     filteredOrders = orders?.filter((item) => item.truck_loaded === false);
-
   if (filterValue === "loaded")
     filteredOrders = orders?.filter((item) => item.truck_loaded === true);
 
-  if (isLoadingOrders) return <Spinner />;
+  // SORTING
+  const sortBy = searchParams.get("sortBy") || "project_date-asc";
+  const [field, direction] = sortBy.split("-");
+  console.log(field, direction);
+  const modifier = direction === "asc" ? 1 : -1;
+  console.log(modifier);
+
+  let sortedOrders;
+  if (field === "project_date") {
+    sortedOrders = filteredOrders.sort(
+      (a, b) => (new Date(a[field]) - new Date(b[field])) * modifier
+    );
+  } else {
+    sortedOrders = filteredOrders.sort(
+      (a, b) => (a[field] - b[field]) * modifier
+    );
+  }
+
+  console.log(sortedOrders);
 
   return (
     <Table role="table">
@@ -58,7 +77,7 @@ export default function OrdersTable() {
         <div>Farbe</div>
         <div>Geladen</div>
       </TableHeader>
-      {filteredOrders?.map((order) => (
+      {sortedOrders?.map((order) => (
         <OrderRow order={order} key={order.id} />
       ))}
     </Table>
