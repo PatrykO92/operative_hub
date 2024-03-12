@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export function useDeleteOrder() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeletingOrder, mutate: deleteOrder } = useMutation({
+  const { isPending: isDeletingOrder, mutate: deleteOrder } = useMutation({
     queryKey: ["orders"],
     mutationFn: removeOrderById,
     onSuccess: () => {
