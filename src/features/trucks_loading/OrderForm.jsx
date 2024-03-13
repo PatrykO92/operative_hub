@@ -30,6 +30,7 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
         {
           onSuccess: () => {
             reset();
+            onCloseModal?.();
           },
         }
       );

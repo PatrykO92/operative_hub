@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import TrucksLoading from "./pages/TrucksLoading";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import Users from "./pages/Users";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,11 +32,17 @@ export default function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="trucks_loading" element={<TrucksLoading />} />
-
+            <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />
           </Route>

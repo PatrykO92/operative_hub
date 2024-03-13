@@ -34,6 +34,7 @@ function ConfirmDelete({
 }) {
   function handleConfirmClick() {
     onConfirm();
+    onCloseModal();
   }
 
   return (

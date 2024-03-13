@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { MdHome } from "react-icons/md";
-import { FaTruck } from "react-icons/fa";
+import { FaTruck, FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 
 const NavList = styled.ul`
@@ -63,6 +63,13 @@ export default function MainNav() {
           <StyledNavLink to="/trucks_loading">
             <FaTruck />
             <span>LKWs laden</span>
+          </StyledNavLink>
+        </li>
+
+        <li>
+          <StyledNavLink to="/users">
+            <FaUsers />
+            <span>Benutzer</span>
           </StyledNavLink>
         </li>
 

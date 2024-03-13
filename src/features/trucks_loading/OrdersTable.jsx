@@ -48,9 +48,8 @@ export default function OrdersTable() {
   // SORTING
   const sortBy = searchParams.get("sortBy") || "project_date-asc";
   const [field, direction] = sortBy.split("-");
-  console.log(field, direction);
+
   const modifier = direction === "asc" ? 1 : -1;
-  console.log(modifier);
 
   let sortedOrders;
   if (field === "project_date") {
@@ -62,8 +61,6 @@ export default function OrdersTable() {
       (a, b) => (a[field] - b[field]) * modifier
     );
   }
-
-  console.log(sortedOrders);
 
   return (
     <Table role="table">
