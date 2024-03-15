@@ -12,7 +12,7 @@ import { useAddNewColor } from "./useAddNewColor";
 
 const StyledColorPicker = styled.div`
   padding: 1rem;
-  background-color: var(--color-grey-200);
+  background-color: var(--color-grey-0);
   border-radius: var(--border-radius-md);
   display: flex;
   flex-direction: column;

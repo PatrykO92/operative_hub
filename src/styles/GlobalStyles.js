@@ -6,11 +6,11 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-50: #eef2ff;
   --color-brand-100: #e0e7ff;
   --color-brand-200: #c7d2fe;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+  --color-brand-500: #254c99;
+  --color-brand-600: #1C3F84;
+  --color-brand-700: #14326e;
+  --color-brand-800: #0e295e;
+  --color-brand-900: #0e295e;
 
   /* Grey */
   --color-grey-0: #fff;
@@ -30,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
   --color-green-100: #dcfce7;
   --color-green-700: #15803d;
   --color-yellow-100: #fef9c3;
+  --color-yellow-200: #FBB900;
   --color-yellow-700: #a16207;
   --color-silver-100: #e5e7eb;
   --color-silver-700: #374151;
@@ -62,8 +63,6 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-
-  /* Creating animations for dark mode */
   transition: background-color 0.3s, border 0.3s;
 }
 
@@ -111,7 +110,6 @@ select:focus {
   outline-offset: -1px;
 }
 
-/* Parent selector, finally 😃 */
 button:has(svg) {
   line-height: 0;
 }
@@ -138,50 +136,43 @@ h6 {
 
 img {
   max-width: 100%;
-
-  /* For dark mode */
-  filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
-/*
-FOR DARK MODE
 
---color-grey-0: #18212f;
---color-grey-50: #111827;
---color-grey-100: #1f2937;
---color-grey-200: #374151;
---color-grey-300: #4b5563;
---color-grey-400: #6b7280;
---color-grey-500: #9ca3af;
---color-grey-600: #d1d5db;
---color-grey-700: #e5e7eb;
---color-grey-800: #f3f4f6;
---color-grey-900: #f9fafb;
+::-webkit-scrollbar {
+  width: 12px;
+}
 
---color-blue-100: #075985;
---color-blue-700: #e0f2fe;
---color-green-100: #166534;
---color-green-700: #dcfce7;
---color-yellow-100: #854d0e;
---color-yellow-700: #fef9c3;
---color-silver-100: #374151;
---color-silver-700: #f3f4f6;
---color-indigo-100: #3730a3;
---color-indigo-700: #e0e7ff;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
 
---color-red-100: #fee2e2;
---color-red-700: #b91c1c;
---color-red-800: #991b1b;
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-200);
+}
 
---backdrop-color: rgba(0, 0, 0, 0.3);
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-50);
+}
 
---shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
---shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
---shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-200) var(--color-brand-50);
+}
 
---image-grayscale: 10%;
---image-opacity: 90%;
-*/
+*::-ms-scrollbar {
+  width: 12px;
+}
+
+*::-ms-scrollbar-thumb {
+  background: var(--color-brand-200);
+}
+
+*::-ms-scrollbar-thumb:hover {
+  background: var(--color-brand-50);
+}
+
+
 `;
 
 export default GlobalStyles;

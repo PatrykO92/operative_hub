@@ -9,7 +9,7 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Container = styled.div`
-  background-color: var(--color-grey-200);
+  background-color: var(--color-grey-0);
   padding: 1rem;
   border-radius: var(--border-radius-md);
 `;
@@ -29,12 +29,12 @@ const StyledBox = styled.div`
   padding: 1rem;
   border: 1px solid var(--color-grey-300);
   border-radius: var(--border-radius-sm);
-  background-color: var(--color-grey-100);
+  background-color: var(--color-grey-50);
   transition: all 0.2s;
   cursor: pointer;
 
   &:hover {
-    background-color: var(--color-grey-300);
+    background-color: var(--color-grey-200);
   }
 `;
 

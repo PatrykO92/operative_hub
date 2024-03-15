@@ -5,15 +5,15 @@ const StyledLogo = styled.div`
 `;
 
 const Img = styled.img`
-  height: 9.6rem;
+  height: ${(props) => props.height};
   width: auto;
   margin: 1rem;
 `;
 
-function Logo() {
+function Logo({ height = "9.6rem" }) {
   return (
     <StyledLogo>
-      <Img src="/logo-light.svg" alt="Logo" />
+      <Img height={height} src="/logo-light.svg" alt="Logo" />
     </StyledLogo>
   );
 }
