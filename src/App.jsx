@@ -12,9 +12,13 @@ import Login from "./pages/Login";
 import TrucksLoading from "./pages/TrucksLoading";
 import TrucksManagement from "./pages/TrucksManagement";
 import PageNotFound from "./pages/PageNotFound";
-import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Users from "./pages/Users";
+import AppAdminLayout from "./ui/AppAdminLayout";
+import Operator from "./pages/Operator";
+import Crane from "./pages/Crane";
+import InformationBoard from "./pages/InformationBoard";
+import AppOperatorLayout from "./ui/AppOperatorLayout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,7 +40,7 @@ export default function App() {
           <Route
             element={
               <ProtectedRoute>
-                <AppLayout />
+                <AppAdminLayout />
               </ProtectedRoute>
             }
           >
@@ -47,6 +51,12 @@ export default function App() {
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />
+          </Route>
+
+          <Route element={<AppOperatorLayout />}>
+            <Route path="operator" element={<Operator />} />
+            <Route path="crane" element={<Crane />} />
+            <Route path="information_board" element={<InformationBoard />} />
           </Route>
 
           <Route path="login" element={<Login />} />
