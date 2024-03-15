@@ -27,11 +27,12 @@ function SignupForm() {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Rolle">
         <StyledSelect id="appRole" {...register("appRole")}>
+          <option value="information_screen">Informationsbildschirm</option>
           <option value="operator">Maschinenbediener</option>
-          <option value="supervisor">Supervisor</option>
-          <option value="foreman">Vorarbeiter</option>
           <option value="crane">Kranfahrer</option>
+          <option value="foreman">Vorarbeiter</option>
           <option value="mechanic">Mechaniker</option>
+          <option value="supervisor">Supervisor</option>
           <option value="admin">Admin</option>
         </StyledSelect>
       </FormRow>
