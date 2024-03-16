@@ -1,3 +1,5 @@
+import CraneTable from "../features/crane/CraneTable";
+
 export default function Crane() {
-  return <div>Crane</div>;
+  return <CraneTable />;
 }
