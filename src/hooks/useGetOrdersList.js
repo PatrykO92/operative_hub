@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getOrdersList } from "../../services/apiOrdersList";
+import { getOrdersList } from "../services/apiOrdersList";
 
 export function useGetOrdersList() {
   const {

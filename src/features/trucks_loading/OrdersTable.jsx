@@ -1,6 +1,6 @@
 import Spinner from "../../ui/Spinner";
 import OrderRow from "./OrderRow";
-import { useGetOrdersList } from "./useGetOrdersList";
+import { useGetOrdersList } from "../../hooks/useGetOrdersList";
 import { useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 

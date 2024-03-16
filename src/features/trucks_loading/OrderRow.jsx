@@ -5,7 +5,7 @@ import CreateEditOrderForm from "./OrderForm";
 import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
-import { useDeleteOrder } from "./useDeleteOrder";
+import { useDeleteOrder } from "../../hooks/useDeleteOrder";
 import SquareColor from "../../ui/SquareColor";
 import Modal from "../../ui/Modal";
 import ButtonIcon from "../../ui/ButtonIcon";

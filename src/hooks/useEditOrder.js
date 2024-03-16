@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editOrderApi } from "../../services/apiOrdersList";
+import { editOrderApi } from "../services/apiOrdersList";
 import toast from "react-hot-toast";
 
 export function useEditOrder() {

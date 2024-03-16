@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { removeOrderById } from "../../services/apiOrdersList";
+import { removeOrderById } from "../services/apiOrdersList";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function useDeleteOrder() {
