@@ -19,6 +19,7 @@ import Operator from "./pages/Operator";
 import Crane from "./pages/Crane";
 import InformationBoard from "./pages/InformationBoard";
 import AppOperatorLayout from "./ui/AppOperatorLayout";
+import LogoutPage from "./pages/LogoutPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,6 +61,7 @@ export default function App() {
           </Route>
 
           <Route path="login" element={<Login />} />
+          <Route path="logout" element={<LogoutPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

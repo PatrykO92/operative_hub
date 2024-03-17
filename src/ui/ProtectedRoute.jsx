@@ -14,10 +14,18 @@ const FullPage = styled.div`
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
-  const { isLoading, isAuth } = useUser();
+  const { isLoading, isAuth, appRole } = useUser();
+
+  const isAllow =
+    appRole === "admin" ||
+    appRole === "supervisor" ||
+    appRole === "mechanic" ||
+    appRole === "foreman";
 
   useEffect(() => {
-    if (!isAuth && !isLoading) navigate("login");
+    if (!isAuth && !isLoading) navigate("/login");
+    if (appRole === "operator") navigate("/operator");
+    if (appRole === "crane") navigate("/crane");
   }, [isAuth, isLoading, navigate]);
 
   if (isLoading)
@@ -27,5 +35,5 @@ export default function ProtectedRoute({ children }) {
       </FullPage>
     );
 
-  if (isAuth) return children;
+  if (isAuth && isAllow) return children;
 }
