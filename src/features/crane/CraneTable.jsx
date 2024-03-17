@@ -7,6 +7,10 @@ export default function CraneTable() {
   const { orders, isLoadingOrders } = useGetOrdersList();
   if (isLoadingOrders) return <Spinner />;
 
+  const notLoadedOrders = orders.filter((order) => {
+    if (order.truck_loaded === false) return order;
+  });
+
   return (
     <>
       <Table $columns={"0.4fr 0.4fr 1.5fr 1.5fr 0.4fr 0.4fr 0.4fr"}>
@@ -19,7 +23,7 @@ export default function CraneTable() {
           <div>Farbe</div>
         </Table.Header>
         <Table.Body
-          data={orders}
+          data={notLoadedOrders}
           render={(order) => <CraneTableRow key={order.id} order={order} />}
         />
       </Table>

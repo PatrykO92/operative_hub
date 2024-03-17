@@ -43,10 +43,10 @@ function ConfirmTruckLoaded({
       <p>
         <span>{order.project_number}</span> -<span>{order.client_name}</span> -{" "}
         <span>{order.construction_site}</span>
-        <div>
+        <span style={{ display: "block" }}>
           Sind Sie sicher, dass Sie eine Bestellung mit dieser Farbe geladen
           haben?
-        </div>
+        </span>
       </p>
       <div>{children && children}</div>
       <div>
