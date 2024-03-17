@@ -8,8 +8,8 @@ import SquareColor from "../../ui/SquareColor";
 const StyledOrder = styled.div`
   display: grid;
   grid-template-columns:
-    minmax(10rem, 0.4fr) minmax(10rem, 0.4fr) minmax(25rem, 1.5fr)
-    minmax(25rem, 1.5fr) minmax(10rem, 0.4fr) minmax(10rem, 0.4fr);
+    minmax(5rem, 0.4fr) minmax(7rem, 0.4fr) minmax(20rem, 1.5fr)
+    minmax(20rem, 1.5fr) minmax(10rem, 0.4fr) minmax(2rem, 0.1fr);
   align-items: center;
   padding: 0.5rem;
   background-color: var(--color-grey-50);

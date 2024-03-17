@@ -20,7 +20,6 @@ import { useGetOrdersList } from "../../hooks/useGetOrdersList";
 const StyledTrucksManagementPanel = styled.div`
   display: flex;
   flex-direction: column;
-
   gap: 3rem;
 `;
 
@@ -31,7 +30,9 @@ export default function TrucksManagementPanel() {
     if (fetchedOrders) setOrders(fetchedOrders);
   }, [fetchedOrders]);
 
-  const [trucks, setTrucks] = useState([{ id: 0, label: "Available orders" }]);
+  const [trucks, setTrucks] = useState([
+    { id: 0, label: "Verfügbare Bestellungen" },
+  ]);
 
   const trucksId = useMemo(() => trucks.map((truck) => truck.id), [trucks]);
   const [activeTruck, setActiveTruck] = useState(null);
@@ -159,7 +160,7 @@ export default function TrucksManagementPanel() {
           })}
         </SortableContext>
 
-        <Button onClick={createNewTruck}>Add truck</Button>
+        <Button onClick={createNewTruck}>LKW hinzufügen</Button>
         {createPortal(
           <DragOverlay>
             {activeTruck && (

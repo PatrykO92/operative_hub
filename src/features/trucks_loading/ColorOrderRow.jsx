@@ -45,6 +45,9 @@ export default function ColorOrderRow({ register, errors, isEditSession }) {
           >
             {availableColors.map((color) => (
               <Option key={color.id} value={color.id}>
+                {color.main_color === color.secondary_color
+                  ? "Einfarbige - "
+                  : "Zweifarbig - "}
                 Quantität: {color.quantity}
               </Option>
             ))}

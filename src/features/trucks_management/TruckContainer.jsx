@@ -32,6 +32,8 @@ const Input = styled.input`
 const StyledTruckContainer = styled.div`
   display: flex;
   flex-direction: column;
+  max-height: 26.5rem;
+
   border: 1px solid var(--color-yellow-200);
   border-radius: var(--border-radius-sm);
 
@@ -60,6 +62,7 @@ const StyledTruckLabel = styled.div`
 const StyledTruckBox = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   background-color: var(--color-grey-200);
   gap: 1rem;
   padding: 0.2rem 0.8rem;
@@ -92,7 +95,6 @@ export default function TruckContainer({
   });
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
-  console.log("orders", orders);
 
   const checkedIfOrders = orders.length === 0;
 
@@ -101,14 +103,22 @@ export default function TruckContainer({
       <StyledTruckLabel
         {...attributes}
         {...listeners}
-        onClick={() => setEditMode(true)}
+        onClick={() => {
+          if (truck.id !== 0) setEditMode(true);
+        }}
       >
         {!editMode && (
           <div>
-            <span>Fahrer: </span>
-            {truck.label}
+            {truck.label === "Verfügbare Bestellungen" && truck.label}
+            {truck.label !== "Verfügbare Bestellungen" && (
+              <>
+                <span>Fahrer: </span>
+                {truck.label}
+              </>
+            )}
           </div>
         )}
+
         {editMode && (
           <div>
             <span>Fahrer: </span>
@@ -127,13 +137,15 @@ export default function TruckContainer({
             />
           </div>
         )}
-        <StyledDeleteButton onClick={() => deleteTruck(truck.id)}>
-          <MdDelete /> <span>Delete</span>
-        </StyledDeleteButton>
+        {truck.id !== 0 && (
+          <StyledDeleteButton onClick={() => deleteTruck(truck.id)}>
+            <MdDelete />
+          </StyledDeleteButton>
+        )}
       </StyledTruckLabel>
       <StyledTruckBox>
         <SortableContext items={ordersIds}>
-          {checkedIfOrders && "Drop orders here"}
+          {checkedIfOrders && "Bestellungen hier aufgeben"}
           {!checkedIfOrders &&
             orders.map((order) => <Order key={order.id} order={order} />)}
         </SortableContext>

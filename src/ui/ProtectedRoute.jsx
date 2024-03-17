@@ -26,6 +26,7 @@ export default function ProtectedRoute({ children }) {
     if (!isAuth && !isLoading) navigate("/login");
     if (appRole === "operator") navigate("/operator");
     if (appRole === "crane") navigate("/crane");
+    if (appRole === "information_screen") navigate("/information_board");
   }, [isAuth, isLoading, navigate]);
 
   if (isLoading)
