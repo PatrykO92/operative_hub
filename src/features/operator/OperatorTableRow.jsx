@@ -30,7 +30,7 @@ function OperatorTableRow({ order }) {
 
   return (
     <>
-      <Table.Row>
+      <Table.Row $danger={packed_extra}>
         <Cell>{project_number}</Cell>
         <Cell>{truck_side_nr}</Cell>
         <Cell>{client_name}</Cell>

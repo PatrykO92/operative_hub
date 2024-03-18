@@ -21,6 +21,7 @@ export default function CraneTable() {
           <div>Konstruktion</div>
           <div>Datum</div>
           <div>Farbe</div>
+          <div></div>
         </Table.Header>
         <Table.Body
           data={notLoadedOrders}

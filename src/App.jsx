@@ -24,7 +24,7 @@ import LogoutPage from "./pages/LogoutPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 1,
     },
   },
 });
