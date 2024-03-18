@@ -9,6 +9,7 @@ export function useGetOrdersList() {
   } = useQuery({
     queryKey: ["orders"],
     queryFn: getOrdersList,
+    refetchInterval: 5000,
   });
 
   return { isLoadingOrders, orders, orderListError };

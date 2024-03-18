@@ -54,3 +54,14 @@ export async function removeOrderById(id) {
 
   return data;
 }
+
+export async function updateMultipleOrders(orders) {
+  const { data, error } = await supabase.from("orders_list").upsert(orders);
+
+  if (error) {
+    console.error("Error updating records:", error.message);
+    throw new Error("Problem beim Speichern von Daten");
+  }
+
+  return data;
+}
