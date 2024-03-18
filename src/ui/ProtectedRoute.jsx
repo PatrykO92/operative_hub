@@ -16,7 +16,7 @@ export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   const { isLoading, isAuth, appRole } = useUser();
 
-  const isAllow =
+  const isAllowAdminDashboard =
     appRole === "admin" ||
     appRole === "supervisor" ||
     appRole === "mechanic" ||
@@ -27,7 +27,7 @@ export default function ProtectedRoute({ children }) {
     if (appRole === "operator") navigate("/operator");
     if (appRole === "crane") navigate("/crane");
     if (appRole === "information_screen") navigate("/information_board");
-  }, [isAuth, isLoading, navigate]);
+  }, [isAuth, appRole, isLoading, navigate]);
 
   if (isLoading)
     return (
@@ -36,5 +36,5 @@ export default function ProtectedRoute({ children }) {
       </FullPage>
     );
 
-  if (isAuth && isAllow) return children;
+  if (isAuth && isAllowAdminDashboard) return children;
 }

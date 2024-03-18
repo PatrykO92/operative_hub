@@ -1,9 +1,8 @@
 import { createContext, useContext } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
@@ -19,7 +18,7 @@ const CommonRow = styled.div`
 `;
 
 const StyledHeader = styled(CommonRow)`
-  padding: 1.6rem 2.4rem;
+  padding: 1rem 1.2rem;
 
   background-color: var(--color-grey-50);
   border-bottom: 1px solid var(--color-yellow-200);
@@ -30,15 +29,21 @@ const StyledHeader = styled(CommonRow)`
 `;
 
 const StyledRow = styled(CommonRow)`
-  padding: 0.1rem 2.4rem;
+  padding: 0.1rem 1.2rem;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-yellow-200);
   }
+
+  ${(props) =>
+    props.$danger &&
+    css`
+      background-color: var(--color-red-100);
+    `}
 `;
 
 const StyledBody = styled.section`
-  margin: 0.4rem 0;
+  margin: 0.1rem 0;
 `;
 
 const Footer = styled.footer`
@@ -79,11 +84,11 @@ function Header({ children }) {
   );
 }
 
-function Row({ children }) {
+function Row({ children, $danger }) {
   const { $columns } = useContext(TableContext);
 
   return (
-    <StyledRow role="row" $columns={$columns}>
+    <StyledRow role="row" $columns={$columns} $danger={$danger}>
       {children}
     </StyledRow>
   );
