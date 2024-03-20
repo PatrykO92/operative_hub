@@ -4,7 +4,7 @@ import Table from "../../ui/Table";
 import CraneTableRow from "./CraneTableRow";
 
 export default function CraneTable() {
-  const { orders, isLoadingOrders } = useGetOrdersList();
+  const { orders, isLoadingOrders } = useGetOrdersList(true);
   if (isLoadingOrders) return <Spinner />;
 
   const notLoadedOrders = orders.filter((order) => {

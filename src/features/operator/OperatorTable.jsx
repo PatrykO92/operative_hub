@@ -4,7 +4,7 @@ import Table from "../../ui/Table";
 import OperatorTableRow from "./OperatorTableRow";
 
 export default function OperatorTable() {
-  const { orders, isLoadingOrders } = useGetOrdersList();
+  const { orders, isLoadingOrders } = useGetOrdersList(true);
 
   if (isLoadingOrders) return <Spinner />;
 
