@@ -48,7 +48,9 @@ export default function Order({ order }) {
     id: order.id,
     data: { type: "order", order },
   });
+
   const style = { transition, transform: CSS.Transform.toString(transform) };
+
   const { isLoadingColor, fetchedColor } = useGetColorById(order.color);
 
   if (isLoadingColor) return <SpinnerMini />;

@@ -2,30 +2,75 @@ import { useState } from "react";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import styled from "styled-components";
+import SpinnerMini from "../../ui/SpinnerMini";
+import { v4 as uuidv4 } from "uuid";
 
-const StyledCreateNewTruck = styled.div`
+const StyledCreateNewTruck = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin: 2rem;
 `;
 
-export default function CreateNewTruck({ createNewTruck, onCloseModal }) {
-  const [newTruck, setNewTruck] = useState("");
+const Label = styled.label`
+  font-weight: 600;
+`;
+
+export default function CreateNewTruck({
+  createNewTruck,
+  isCreatingNewTruck,
+  onCloseModal,
+}) {
+  const [newTruckId, setNewTruckId] = useState("");
+  const [newTruckPriority, setNewTruckPriority] = useState("");
+  const [loadDate, setLoadDate] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const newTruck = {
+      id: uuidv4(),
+      management_id: newTruckId,
+      priority_number: newTruckPriority,
+      load_date: loadDate,
+    };
+
+    createNewTruck(newTruck);
+
+    onCloseModal();
+  };
+
   return (
-    <StyledCreateNewTruck>
+    <StyledCreateNewTruck onSubmit={onSubmit}>
+      <Label htmlFor="new_truck_id">Fuhrer</Label>
       <Input
-        type="number"
-        value={newTruck}
-        onChange={(e) => setNewTruck(Number(e.target.value))}
+        id="new_truck_id"
+        type="text"
+        value={newTruckId}
+        onChange={(e) => setNewTruckId(e.target.value)}
+        disabled={isCreatingNewTruck}
       />
-      <Button
-        onClick={() => {
-          createNewTruck(newTruck);
-          onCloseModal();
-        }}
-      >
-        Neuen Fahrer erstellen
+      <Label htmlFor="new_truck_priority">Priorität</Label>
+      <Input
+        id="new_truck_priority"
+        type="number"
+        value={newTruckPriority}
+        onChange={(e) => setNewTruckPriority(Number(e.target.value))}
+        disabled={isCreatingNewTruck}
+      />
+      <Label htmlFor="new_truck_date">Ladetag</Label>
+      <Input
+        id="new_truck_date"
+        type="date"
+        value={loadDate}
+        onChange={(e) => setLoadDate(e.target.value)}
+        disabled={isCreatingNewTruck}
+      />
+      <Button type="submit" disabled={isCreatingNewTruck}>
+        {!isCreatingNewTruck ? "Neuen Fahrer erstellen" : <SpinnerMini />}
+      </Button>
+      <Button $variation="secondary" disabled={isCreatingNewTruck}>
+        Stornieren
       </Button>
     </StyledCreateNewTruck>
   );

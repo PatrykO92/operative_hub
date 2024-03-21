@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { MdDelete } from "react-icons/md";
-import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { SortableContext } from "@dnd-kit/sortable";
 import { useMemo } from "react";
-import Order from "./Order";
+import Order from "./ManagmentOrder";
+import { useDroppable } from "@dnd-kit/core";
 
 const StyledDeleteButton = styled.button`
   display: flex;
@@ -22,31 +22,24 @@ const StyledDeleteButton = styled.button`
 const StyledTruckContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 24rem;
   border: 1px solid var(--color-yellow-200);
   border-radius: var(--border-radius-sm);
 
   ${(props) =>
-    props.$dragged &&
-    css`
-      background-color: var(--color-yellow-200);
-      color: var(--color-yellow-200);
-      border: 1px solid var(--color-yellow-200);
-      opacity: 0.3;
-    `}
-
-  ${(props) =>
     props.$mainOrderList &&
     css`
-      border-width: 3px;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      height: 24rem;
       position: sticky;
-      top: 0;
+      top: 3.5rem;
       z-index: 2;
     `}
 `;
 
 const StyledTruckLabel = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-brand-700);
@@ -59,57 +52,63 @@ const StyledTruckLabel = styled.div`
 
 const StyledTruckBox = styled.div`
   height: 100%;
+  min-height: 4rem;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   background-color: var(--color-grey-200);
-  gap: 1rem;
-  padding: 0.2rem 0.8rem;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
   border-radius: var(--border-radius-sm);
 `;
 
-export default function TruckContainer({ truck, deleteTruck, orders }) {
+export default function TruckContainer({
+  truck,
+  deleteTruck,
+  isDeletingTruck,
+  orders,
+}) {
   const ordersIds = useMemo(() => {
     return orders.map((order) => order.id);
   }, [orders]);
 
-  const {
-    setNodeRef,
-    attributes,
-    listeners,
-    transition,
-    transform,
-    isDragging,
-  } = useSortable({
+  const { setNodeRef } = useDroppable({
     id: truck.id,
     data: { type: "truck", truck },
-    disabled: truck.id === 0,
   });
-
-  const style = { transition, transform: CSS.Transform.toString(transform) };
 
   const checkedIfOrders = orders.length === 0;
 
   return (
     <StyledTruckContainer
       ref={setNodeRef}
-      style={style}
-      $dragged={isDragging}
-      $mainOrderList={truck.id === 0}
+      $mainOrderList={truck.management_id === "0"}
     >
-      <StyledTruckLabel {...attributes} {...listeners}>
-        <div>
-          {truck.label === "Verfügbare Bestellungen" && truck.label}
-          {truck.label !== "Verfügbare Bestellungen" && (
-            <>
-              <span>Fahrer: </span>
-              {truck.label}
-            </>
-          )}
-        </div>
+      <StyledTruckLabel>
+        {truck.management_id === "0" && "Verfügbare Bestellungen"}
 
-        {truck.id !== 0 && (
-          <StyledDeleteButton onClick={() => deleteTruck(truck.id)}>
+        {truck.management_id !== "0" && (
+          <>
+            <div>
+              <span>Ladedatum: </span>
+              {truck.load_date}
+            </div>
+            <div>
+              <span>Priority: </span>
+              {truck.priority_number}
+            </div>
+            <div>
+              <span>Fahrer: </span>
+              {truck.management_id}
+            </div>
+          </>
+        )}
+
+        {truck.management_id !== "0" && (
+          <StyledDeleteButton
+            onClick={() => deleteTruck(truck.id, truck.management_id)}
+            disabled={isDeletingTruck}
+          >
             <MdDelete />
           </StyledDeleteButton>
         )}
