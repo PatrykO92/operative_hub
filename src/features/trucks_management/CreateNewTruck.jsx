@@ -21,7 +21,7 @@ export default function CreateNewTruck({
   isCreatingNewTruck,
   onCloseModal,
 }) {
-  const [newTruckId, setNewTruckId] = useState("");
+  const [newTruckLabel, setNewTruckLabel] = useState("");
   const [newTruckPriority, setNewTruckPriority] = useState("");
   const [loadDate, setLoadDate] = useState("");
 
@@ -30,7 +30,7 @@ export default function CreateNewTruck({
 
     const newTruck = {
       id: uuidv4(),
-      management_id: newTruckId,
+      label: newTruckLabel,
       priority_number: newTruckPriority,
       load_date: loadDate,
     };
@@ -46,8 +46,8 @@ export default function CreateNewTruck({
       <Input
         id="new_truck_id"
         type="text"
-        value={newTruckId}
-        onChange={(e) => setNewTruckId(e.target.value)}
+        value={newTruckLabel}
+        onChange={(e) => setNewTruckLabel(e.target.value)}
         disabled={isCreatingNewTruck}
       />
       <Label htmlFor="new_truck_priority">Priorität</Label>

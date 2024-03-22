@@ -80,14 +80,11 @@ export default function TruckContainer({
   const checkedIfOrders = orders.length === 0;
 
   return (
-    <StyledTruckContainer
-      ref={setNodeRef}
-      $mainOrderList={truck.management_id === "0"}
-    >
+    <StyledTruckContainer ref={setNodeRef} $mainOrderList={truck.label === "0"}>
       <StyledTruckLabel>
-        {truck.management_id === "0" && "Verfügbare Bestellungen"}
+        {truck.label === "0" && "Verfügbare Bestellungen"}
 
-        {truck.management_id !== "0" && (
+        {truck.label !== "0" && (
           <>
             <div>
               <span>Ladedatum: </span>
@@ -99,14 +96,14 @@ export default function TruckContainer({
             </div>
             <div>
               <span>Fahrer: </span>
-              {truck.management_id}
+              {truck.label}
             </div>
           </>
         )}
 
-        {truck.management_id !== "0" && (
+        {truck.label !== "0" && (
           <StyledDeleteButton
-            onClick={() => deleteTruck(truck.id, truck.management_id)}
+            onClick={() => deleteTruck(truck.id)}
             disabled={isDeletingTruck}
           >
             <MdDelete />

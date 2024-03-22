@@ -84,16 +84,7 @@ export default function TrucksManagementPanel() {
   );
 
   function saveCurrentStateToBackend() {
-    updateMultipleTrucks(
-      trucks.map((truck) => {
-        return {
-          id: truck.id,
-          management_id: truck.management_id,
-          load_date: truck.load_date,
-          priority_number: truck.priority_number,
-        };
-      })
-    );
+    updateMultipleTrucks(trucks);
 
     // Update all orders with prevented index
     updateMultipleOrders(
@@ -108,9 +99,9 @@ export default function TrucksManagementPanel() {
     setTrucks((oldTrucks) => [...oldTrucks, newTruck]);
   }
 
-  function deleteTruck(id, management_id) {
+  function deleteTruck(id) {
     const checkIfNoOrdersInsideTruck = orders.some(
-      (order) => order.truck_management_id === management_id
+      (order) => order.truck_management_id === id
     );
 
     if (checkIfNoOrdersInsideTruck) {
@@ -156,7 +147,6 @@ export default function TrucksManagementPanel() {
       setOrders((orders) => {
         const activeIndex = orders.findIndex((ord) => ord.id === activeId);
         const overIndex = orders.findIndex((ord) => ord.id === overId);
-
         if (
           orders[activeIndex].truck_management_id !==
           orders[overIndex].truck_management_id
@@ -172,8 +162,7 @@ export default function TrucksManagementPanel() {
 
     const isOverATruckContainer = over.data?.current?.type === "truck";
 
-    const overTruckManagmentId = over.data?.current?.truck?.management_id;
-
+    const overTruckManagmentId = over.data?.current?.truck?.id;
     if (isActiveAOrder && isOverATruckContainer) {
       setOrders((orders) => {
         const activeIndex = orders.findIndex((ord) => ord.id === activeId);
@@ -194,8 +183,7 @@ export default function TrucksManagementPanel() {
     filteredTrucks = trucks?.filter((truck) => {
       return (
         new Date(truck.load_date).toLocaleDateString() ===
-          new Date(filterDate).toLocaleDateString() ||
-        truck.management_id === "0"
+          new Date(filterDate).toLocaleDateString() || truck.label === "0"
       );
     });
 
@@ -214,7 +202,7 @@ export default function TrucksManagementPanel() {
             deleteTruck={deleteTruck}
             isDeletingTruck={isDeletingTruck}
             orders={orders.filter(
-              (order) => order.truck_management_id === truck.management_id
+              (order) => order.truck_management_id === truck.id
             )}
           />
         ))}
