@@ -74,6 +74,8 @@ export default function Order({ order }) {
           width="2rem"
           $main={fetchedColor.main_color}
           $secondary={fetchedColor.secondary_color}
+          $label={fetchedColor.label}
+          $labelColor={fetchedColor.label_color}
         />
       </Cell>
     </StyledOrder>

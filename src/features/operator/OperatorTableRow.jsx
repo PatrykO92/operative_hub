@@ -41,6 +41,8 @@ function OperatorTableRow({ order }) {
           <SquareColor
             $main={fetchedColor.main_color}
             $secondary={fetchedColor.secondary_color}
+            $label={fetchedColor.label}
+            $labelColor={fetchedColor.label_color}
           />
         </Cell>
       </Table.Row>

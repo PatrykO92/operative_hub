@@ -40,7 +40,6 @@ export async function removeTruckById(id) {
 }
 
 export async function updateMultipleTrucksManagement(trucks) {
-  console.log(trucks);
   const { data, error } = await supabase
     .from("trucks_management")
     .upsert(trucks);

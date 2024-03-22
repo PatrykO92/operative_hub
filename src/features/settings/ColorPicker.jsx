@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
+
+import { useEffect, useState } from "react";
+
 import SquareColor from "../../ui/SquareColor";
 import ColorInput from "../../ui/ColorInput";
 import Button from "../../ui/Button";
-import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -25,12 +27,31 @@ const ColorPicker = () => {
     defaultValues: {
       main_color: "#000000",
       secondary_color: "#000000",
+      label_color: "#ffffff",
     },
   });
   const { addNewColor, isCreating } = useAddNewColor();
 
   const mainColor = watch("main_color");
   const secondaryColor = watch("secondary_color");
+  const labelColor = watch("label_color");
+  const label = watch("label");
+
+  useEffect(() => {
+    // Function to determine contrast
+    const getContrastYIQ = (hexcolor) => {
+      hexcolor = hexcolor.replace("#", "");
+      var r = parseInt(hexcolor.substr(0, 2), 16);
+      var g = parseInt(hexcolor.substr(2, 2), 16);
+      var b = parseInt(hexcolor.substr(4, 2), 16);
+      var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? "#000000" : "#ffffff"; // Return black or white depending on contrast
+    };
+
+    // Set text color based on contrast
+    const textColor = getContrastYIQ(mainColor);
+    setValue("label_color", textColor);
+  }, [mainColor, setValue]);
 
   const handleMainColorChange = (e) => {
     const color = e.target.value;
@@ -41,8 +62,11 @@ const ColorPicker = () => {
   const onSubmit = (data) => {
     addNewColor(data, {
       onSuccess: () => {
-        reset();
-        setShowColorPicker(false);
+        reset({
+          main_color: "#000000",
+          secondary_color: "#000000",
+          label_color: "#ffffff",
+        });
       },
     });
   };
@@ -56,7 +80,12 @@ const ColorPicker = () => {
       {showColorPicker && (
         <>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <SquareColor $main={mainColor} $secondary={secondaryColor} />
+            <SquareColor
+              $main={mainColor}
+              $secondary={secondaryColor}
+              $labelColor={labelColor}
+              $label={label}
+            />
 
             <FormRow label="Hauptfarbe">
               <ColorInput
@@ -85,6 +114,18 @@ const ColorPicker = () => {
                 required
                 placeholder="z.B. 25"
                 {...register("quantity")}
+              />
+            </FormRow>
+
+            <FormRow label="Etikett">
+              <Input
+                disabled={isCreating}
+                type="number"
+                id="label"
+                min="1"
+                max="999"
+                placeholder="z.B. 17"
+                {...register("label")}
               />
             </FormRow>
 

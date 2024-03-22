@@ -51,6 +51,8 @@ function OrderRow({ order }) {
           <SquareColor
             $main={fetchedColor.main_color}
             $secondary={fetchedColor.secondary_color}
+            $label={fetchedColor.label}
+            $labelColor={fetchedColor.label_color}
           />
         </Cell>
         <Cell>{truck_loaded ? "Ja" : "Nein"}</Cell>

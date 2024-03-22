@@ -71,6 +71,8 @@ function Box({ color }) {
           <SquareColor
             $main={color.main_color}
             $secondary={color.secondary_color}
+            $label={color.label}
+            $labelColor={color.label_color}
           />
           Quantität: {color.quantity}
         </StyledBox>
@@ -84,6 +86,8 @@ function Box({ color }) {
           <SquareColor
             $main={color.main_color}
             $secondary={color.secondary_color}
+            $label={color.label}
+            $labelColor={color.label_color}
           />
         </ConfirmDelete>
       </Modal.Window>
