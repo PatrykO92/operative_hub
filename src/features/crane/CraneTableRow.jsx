@@ -1,21 +1,11 @@
-import styled from "styled-components";
-
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
 import { useEditOrder } from "../../hooks/useEditOrder";
 import SquareColor from "../../ui/SquareColor";
-import Table from "../../ui/Table";
 import Modal from "../../ui/Modal";
 import Button from "../../ui/Button";
 import ConfirmTruckLoaded from "./ConfirmTruckLoaded";
-
-const Cell = styled.div`
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--color-grey-600);
-  font-family: "Sono";
-  padding: 0.5rem 0;
-`;
+import { CraneCell, CraneCommonRow } from "../../ui/CraneTable";
 
 function CraneTableRow({ order }) {
   const {
@@ -27,6 +17,7 @@ function CraneTableRow({ order }) {
     project_number,
     truck_side_nr,
   } = order;
+
   const { isLoadingColor, fetchedColor } = useGetColorById(color_id);
 
   const { editOrder, isEditing } = useEditOrder();
@@ -35,24 +26,25 @@ function CraneTableRow({ order }) {
 
   return (
     <>
-      <Table.Row>
-        <Cell>{project_number}</Cell>
-        <Cell>{truck_side_nr}</Cell>
-        <Cell>{client_name}</Cell>
-        <Cell>{construction_site}</Cell>
-        <Cell>{project_date}</Cell>
-        <Cell>
+      <CraneCommonRow>
+        <CraneCell>{project_number}</CraneCell>
+        <CraneCell>{truck_side_nr}</CraneCell>
+        <CraneCell>{client_name}</CraneCell>
+        <CraneCell>{construction_site}</CraneCell>
+        <CraneCell>{project_date}</CraneCell>
+        <CraneCell>
           <SquareColor
             $main={fetchedColor.main_color}
             $secondary={fetchedColor.secondary_color}
             $label={fetchedColor.label}
             $labelColor={fetchedColor.label_color}
           />
-        </Cell>
-        <Cell>
+        </CraneCell>
+
+        <CraneCell>
           <Modal>
             <Modal.Open opens="change-to-loaded">
-              <Button>Geladen</Button>
+              <Button $size="small">Geladen</Button>
             </Modal.Open>
             <Modal.Window name="change-to-loaded">
               <ConfirmTruckLoaded
@@ -71,8 +63,8 @@ function CraneTableRow({ order }) {
               </ConfirmTruckLoaded>
             </Modal.Window>
           </Modal>
-        </Cell>
-      </Table.Row>
+        </CraneCell>
+      </CraneCommonRow>
     </>
   );
 }
