@@ -6,12 +6,12 @@ import OperatorHeader from "./OperatorHeader";
 
 const StyledAppOperatorLayout = styled.div`
   display: grid;
-  grid-template-rows: 5rem auto 10rem;
+  grid-template-rows: 5rem auto 8rem;
   height: 100vh;
 `;
 
 const Main = styled.main`
-  padding: 2rem;
+  padding: 1rem;
   overflow-y: scroll;
   background-color: var(--color-grey-200);
 `;

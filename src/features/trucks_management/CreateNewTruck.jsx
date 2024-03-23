@@ -28,6 +28,8 @@ export default function CreateNewTruck({
   const onSubmit = (e) => {
     e.preventDefault();
 
+    if (newTruckLabel === "0" || newTruckLabel === 0) return;
+
     const newTruck = {
       id: uuidv4(),
       label: newTruckLabel,
@@ -69,7 +71,11 @@ export default function CreateNewTruck({
       <Button type="submit" disabled={isCreatingNewTruck}>
         {!isCreatingNewTruck ? "Neuen Fahrer erstellen" : <SpinnerMini />}
       </Button>
-      <Button $variation="secondary" disabled={isCreatingNewTruck}>
+      <Button
+        $variation="secondary"
+        disabled={isCreatingNewTruck}
+        onClick={onCloseModal}
+      >
         Stornieren
       </Button>
     </StyledCreateNewTruck>

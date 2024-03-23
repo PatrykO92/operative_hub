@@ -52,10 +52,9 @@ export default function DatePicker() {
           }
         />
       )}
-      <label htmlFor="current_filter_date_checkbox_check">
+      <label>
         Alle Termine
         <Input
-          id="current_filter_date_checkbox_check"
           type="checkbox"
           checked={currentDate === "all"}
           onChange={handleToggle}

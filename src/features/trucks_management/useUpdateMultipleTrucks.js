@@ -6,7 +6,7 @@ export default function useUpdateMultipleTrucks() {
   const { mutate: updateMultipleTrucks, isPending: isUpdatingMultipleOrders } =
     useMutation({
       mutationFn: (trucks) => updateMultipleTrucksManagement(trucks),
-      onSuccess: () => toast.success("Trucks updated"),
+      onSuccess: () => toast.success("LKWs wurden erfolgreich aktualisiert"),
       onError: (error) => {
         toast.error(error.message);
       },

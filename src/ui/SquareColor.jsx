@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export default function SquareColor({ $label, ...props }) {
+  return (
+    <StyledSquareColor {...props}>
+      <span>{$label}</span>
+    </StyledSquareColor>
+  );
+}
+
 const StyledSquareColor = styled.div.attrs((props) => ({
   style: {
     backgroundColor: props.$main,
@@ -18,11 +26,3 @@ const StyledSquareColor = styled.div.attrs((props) => ({
   outline: 1px solid var(--color-grey-400);
   border-radius: var(--border-radius-tiny);
 `;
-
-export default function SquareColor({ $label, ...props }) {
-  return (
-    <StyledSquareColor {...props}>
-      <span>{$label}</span>
-    </StyledSquareColor>
-  );
-}

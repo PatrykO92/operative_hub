@@ -28,11 +28,14 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 
 const StyledOperations = styled.div`
+  margin: 0 auto;
+  max-width: 200rem;
   padding: 1rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
   background-color: var(--color-grey-300);
   position: fixed;
-  bottom: 0.2rem;
+  left: 28rem;
+  bottom: 24.7rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -42,6 +45,8 @@ const StyledTrucksManagementPanel = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-bottom: 45rem;
+  overflow-y: scroll;
 `;
 
 export default function TrucksManagementPanel() {
@@ -216,7 +221,7 @@ export default function TrucksManagementPanel() {
         <StyledOperations>
           <Modal>
             <Modal.Open opens="create-new-truck">
-              <Button>LKW hinzufügen</Button>
+              <Button $size="small">LKW hinzufügen</Button>
             </Modal.Open>
             <Modal.Window name="create-new-truck">
               <CreateNewTruck
@@ -226,6 +231,7 @@ export default function TrucksManagementPanel() {
             </Modal.Window>
           </Modal>
           <Button
+            $size="small"
             $variation="green"
             onClick={() => saveCurrentStateToBackend()}
           >

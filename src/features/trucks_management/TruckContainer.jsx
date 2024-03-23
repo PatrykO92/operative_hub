@@ -28,11 +28,12 @@ const StyledTruckContainer = styled.div`
   ${(props) =>
     props.$mainOrderList &&
     css`
-      margin-left: -1rem;
-      margin-right: -1rem;
+      max-width: 200rem;
       height: 24rem;
-      position: sticky;
-      top: 3.5rem;
+      position: fixed;
+      bottom: 1rem;
+      right: 2rem;
+      left: 28rem;
       z-index: 2;
     `}
 `;
