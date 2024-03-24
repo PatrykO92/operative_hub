@@ -14,6 +14,26 @@ export async function getOrdersList() {
   return orders_list;
 }
 
+export async function getOrderByProjectNumber(project_number) {
+  const { data: order, error } = await supabase
+    .from("orders_list")
+    .select("*")
+    .eq("project_number", project_number)
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    if (error.code === "PGRST116") return;
+
+    console.error(error);
+    throw new Error(
+      `Bestellnummer ${project_number} kann nicht geladen werden`
+    );
+  }
+
+  return order;
+}
+
 export async function addOrderToList({ formData }) {
   const { data: newOrder, error } = await supabase
     .from("orders_list")

@@ -8,6 +8,7 @@ import ColorOrderRow from "./ColorOrderRow";
 import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import { useEditOrder } from "../../hooks/useEditOrder";
 import { useCreateOrder } from "../../hooks/useCreateOrder";
+import useGetOrderByProjectNumber from "../../hooks/useGetOrderByProjectNumber";
 
 function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = orderToEdit;
@@ -16,11 +17,13 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
 
   const { changeColor } = useChangeColorStatus();
   const { createOrder, isCreating } = useCreateOrder();
+  const { getOrder, isLoadingOrder } = useGetOrderByProjectNumber();
   const { editOrder, isEditing } = useEditOrder();
 
-  const { register, handleSubmit, reset, formState, getValues } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
+  const { register, handleSubmit, reset, formState, getValues, setValue } =
+    useForm({
+      defaultValues: isEditSession ? editValues : {},
+    });
 
   const { errors } = formState;
 
@@ -58,9 +61,19 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
     }
   }
 
-  function onError() {
-    // console.log(errors);
+  function getDataOnBlur() {
+    const project_number = getValues("project_number");
+    getOrder(project_number, {
+      onSuccess: (data) => {
+        const { client_name, construction_site } = data;
+        if (client_name && construction_site)
+          setValue("client_name", client_name);
+        setValue("construction_site", construction_site);
+      },
+    });
   }
+
+  function onError() {}
 
   const isWorking = isEditing || isCreating;
 
@@ -74,6 +87,7 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
           placeholder="z.B. 2224"
           disabled={isWorking}
           type="number"
+          onBlurCapture={getDataOnBlur}
           id="project_number"
           {...register("project_number", {
             required: "Dieses Feld ist erforderlich",
@@ -96,7 +110,7 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
       <FormRow label={"Klient"} error={errors?.client_name?.message}>
         <Input
           placeholder="z.B. Pfister GmbH"
-          disabled={isWorking}
+          disabled={isWorking || isLoadingOrder}
           type="text"
           id="client_name"
           {...register("client_name", {
@@ -111,7 +125,7 @@ function CreateEditOrderForm({ orderToEdit = {}, onCloseModal }) {
       >
         <Input
           placeholder="z.B. Wipfeld - Uniper"
-          disabled={isWorking}
+          disabled={isWorking || isLoadingOrder}
           type="text"
           id="construction_site"
           {...register("construction_site", {
