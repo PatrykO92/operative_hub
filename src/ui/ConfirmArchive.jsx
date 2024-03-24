@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
 
-const StyledConfirmDelete = styled.div`
+const StyledConfirmArchive = styled.div`
   width: 40rem;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({
+function ConfirmArchive({
   children,
   resource,
   onConfirm,
@@ -38,11 +38,11 @@ function ConfirmDelete({
   }
 
   return (
-    <StyledConfirmDelete>
-      <Heading type="h3">Löschen [{resource}]</Heading>
+    <StyledConfirmArchive>
+      <Heading type="h3">Archive [{resource}]</Heading>
       <p>
-        Sind Sie sicher, dass Sie diese [{resource}] dauerhaft löschen möchten?
-        Diese Aktion kann nicht rückgängig gemacht werden.
+        Sind Sie sicher, dass Sie die Projektnummer [{resource}] archivieren
+        möchten?
       </p>
       <div>{children && children}</div>
       <div>
@@ -54,11 +54,11 @@ function ConfirmDelete({
           onClick={handleConfirmClick}
           disabled={disabled}
         >
-          Löschen
+          Archiv
         </Button>
       </div>
-    </StyledConfirmDelete>
+    </StyledConfirmArchive>
   );
 }
 
-export default ConfirmDelete;
+export default ConfirmArchive;

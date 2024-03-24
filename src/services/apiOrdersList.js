@@ -3,7 +3,8 @@ import supabase from "./supabase";
 export async function getOrdersList() {
   const { data: orders_list, error } = await supabase
     .from("orders_list")
-    .select("*");
+    .select("*")
+    .eq("archived", false);
 
   if (error) {
     console.error(error);
@@ -27,7 +28,6 @@ export async function addOrderToList({ formData }) {
 }
 
 export async function editOrderApi({ formData, editId }) {
-  console.log(formData, editId);
   const { data: editedOrder, error } = await supabase
     .from("orders_list")
     .update({ ...formData })
@@ -39,6 +39,20 @@ export async function editOrderApi({ formData, editId }) {
   }
 
   return editedOrder;
+}
+
+export async function archiveOrderById(id) {
+  const { data, error } = await supabase
+    .from("orders_list")
+    .update({ archived: true })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error removing record:", error.message);
+    throw new Error("Die Bestellung kann nicht archiviert werden");
+  }
+
+  return data;
 }
 
 export async function removeOrderById(id) {

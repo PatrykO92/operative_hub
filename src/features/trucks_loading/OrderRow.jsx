@@ -5,12 +5,12 @@ import CreateEditOrderForm from "./OrderForm";
 import { useChangeColorStatus } from "../../hooks/useChangeColor";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
-import { useDeleteOrder } from "../../hooks/useDeleteOrder";
+import useArchiveOrder from "../../hooks/useArchiveOrder";
 import SquareColor from "../../ui/SquareColor";
 import Modal from "../../ui/Modal";
 import ButtonIcon from "../../ui/ButtonIcon";
-import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import ConfirmArchive from "../../ui/ConfirmArchive";
 
 const Cell = styled.div`
   font-size: 1.3rem;
@@ -34,7 +34,7 @@ function OrderRow({ order }) {
 
   const { changeColor } = useChangeColorStatus();
   const { isLoadingColor, fetchedColor } = useGetColorById(color_id);
-  const { isDeletingOrder, deleteOrder } = useDeleteOrder();
+  const { isArchivingOrder, archiveOrder } = useArchiveOrder();
 
   if (isLoadingColor) return <SpinnerMini />;
 
@@ -67,21 +67,21 @@ function OrderRow({ order }) {
               <CreateEditOrderForm orderToEdit={order} />
             </Modal.Window>
 
-            <Modal.Open opens="delete-window">
+            <Modal.Open opens="archive-window">
               <ButtonIcon>
                 <HiTrash />
               </ButtonIcon>
             </Modal.Open>
-            <Modal.Window name="delete-window">
-              <ConfirmDelete
-                disabled={isDeletingOrder}
+            <Modal.Window name="archive-window">
+              <ConfirmArchive
+                disabled={isArchivingOrder}
                 resource={`${project_number}`}
                 onConfirm={() => {
                   changeColor(
                     { color_id, status: true },
                     {
                       onSuccess: () => {
-                        deleteOrder(order_id);
+                        archiveOrder(order_id);
                       },
                     }
                   );
