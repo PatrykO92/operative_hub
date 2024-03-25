@@ -9,10 +9,8 @@ import Order from "./ManagmentOrder";
 import Spinner from "../../ui/Spinner";
 import { useGetOrdersList } from "../../hooks/useGetOrdersList";
 import useUpdateMultipleOrders from "../../hooks/useUpdateMultipleOrders";
-import SpinnerMini from "../../ui/SpinnerMini";
 import Modal from "../../ui/Modal";
 import CreateNewTruck from "./CreateNewTruck";
-import useUpdateMultipleTrucks from "./useUpdateMultipleTrucks";
 import useCreateNewTruck from "./useCreateNewTruck";
 import useGetTrucksList from "./useGetTrucksList";
 import { useDeleteTruck } from "./useDeleteTruck";
@@ -52,16 +50,13 @@ const StyledTrucksManagementPanel = styled.div`
 export default function TrucksManagementPanel() {
   const [searchParams] = useSearchParams();
   const { orders: fetchedOrders, isLoadingOrders } = useGetOrdersList();
-  const { updateMultipleOrders, isPending: isUpdatingMultipleOrders } =
-    useUpdateMultipleOrders();
+  const { updateMultipleOrders } = useUpdateMultipleOrders();
 
   const { trucksList, isLoadingTrucksList } = useGetTrucksList();
   const { createNewTruck: createNewTruckHook, isCreatingNewTruck } =
     useCreateNewTruck();
 
   const { deleteTruck: deleteTruckHook, isDeletingTruck } = useDeleteTruck();
-
-  const { updateMultipleTrucks } = useUpdateMultipleTrucks();
 
   const [trucks, setTrucks] = useState([]);
 
@@ -89,9 +84,6 @@ export default function TrucksManagementPanel() {
   );
 
   function saveCurrentStateToBackend() {
-    updateMultipleTrucks(trucks);
-
-    // Update all orders with prevented index
     updateMultipleOrders(
       orders.map((order, index) => {
         return { ...order, truck_management_index: index };
@@ -100,8 +92,9 @@ export default function TrucksManagementPanel() {
   }
 
   function createNewTruck(newTruck) {
-    createNewTruckHook(newTruck);
-    setTrucks((oldTrucks) => [...oldTrucks, newTruck]);
+    createNewTruckHook(newTruck, {
+      onSuccess: () => setTrucks((oldTrucks) => [...oldTrucks, newTruck]),
+    });
   }
 
   function deleteTruck(id) {
@@ -116,10 +109,12 @@ export default function TrucksManagementPanel() {
       return;
     }
 
-    deleteTruckHook(id);
-
-    const filteredTrucks = trucks.filter((truck) => truck.id !== id);
-    setTrucks(filteredTrucks);
+    deleteTruckHook(id, {
+      onSuccess: () => {
+        const filteredTrucks = trucks.filter((truck) => truck.id !== id);
+        setTrucks(filteredTrucks);
+      },
+    });
   }
 
   function onDragStart(event) {
@@ -131,6 +126,7 @@ export default function TrucksManagementPanel() {
 
   function onDragEnd() {
     setActiveOrder(null);
+    saveCurrentStateToBackend();
   }
 
   function onDragOver(event) {
@@ -230,13 +226,6 @@ export default function TrucksManagementPanel() {
               />
             </Modal.Window>
           </Modal>
-          <Button
-            $size="small"
-            $variation="green"
-            onClick={() => saveCurrentStateToBackend()}
-          >
-            {!isUpdatingMultipleOrders ? "Speichern" : <SpinnerMini />}
-          </Button>
         </StyledOperations>
       </StyledTrucksManagementPanel>
     </DndContext>

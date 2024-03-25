@@ -23,6 +23,12 @@ const StyledOrder = styled.div`
       opacity: 0.3;
     `}
 
+  ${(props) =>
+    props.$loaded &&
+    css`
+      background-color: var(--color-green-100);
+    `}
+
   &:hover {
     border: 1px solid var(--color-grey-900);
   }
@@ -58,6 +64,7 @@ export default function Order({ order }) {
   return (
     <StyledOrder
       $dragged={isDragging}
+      $loaded={order.truck_loaded}
       ref={setNodeRef}
       style={style}
       {...attributes}
