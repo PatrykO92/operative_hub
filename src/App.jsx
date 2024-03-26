@@ -15,11 +15,13 @@ import PageNotFound from "./pages/PageNotFound";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Users from "./pages/Users";
 import AppAdminLayout from "./ui/AppAdminLayout";
+import AppCraneLayout from "./ui/AppCraneLayout";
 import Operator from "./pages/Operator";
 import Crane from "./pages/Crane";
 import InformationBoard from "./pages/InformationBoard";
 import AppOperatorLayout from "./ui/AppOperatorLayout";
 import LogoutPage from "./pages/LogoutPage";
+import Maintenance from "./pages/Maintenance";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +51,7 @@ export default function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="trucks_loading" element={<TrucksLoading />} />
             <Route path="trucks_management" element={<TrucksManagement />} />
+            <Route path="maintenance" element={<Maintenance />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />
@@ -56,8 +59,12 @@ export default function App() {
 
           <Route element={<AppOperatorLayout />}>
             <Route path="operator" element={<Operator />} />
-            <Route path="crane" element={<Crane />} />
+
             <Route path="information_board" element={<InformationBoard />} />
+          </Route>
+
+          <Route element={<AppCraneLayout />}>
+            <Route path="crane" element={<Crane />} />
           </Route>
 
           <Route path="login" element={<Login />} />

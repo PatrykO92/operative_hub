@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { MdHome } from "react-icons/md";
-import { FaTruck, FaTruckLoading, FaUsers } from "react-icons/fa";
+import { FaTruck, FaTruckLoading, FaUsers, FaTools } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 
 const NavList = styled.ul`
@@ -70,6 +70,13 @@ export default function MainNav() {
           <StyledNavLink to="/trucks_management">
             <FaTruck />
             <span>LKWs-Management</span>
+          </StyledNavLink>
+        </li>
+
+        <li>
+          <StyledNavLink to="/maintenance">
+            <FaTools />
+            <span>Maschinenwartung</span>
           </StyledNavLink>
         </li>
 

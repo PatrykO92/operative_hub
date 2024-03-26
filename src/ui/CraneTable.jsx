@@ -19,6 +19,7 @@ const CraneCommonRow = styled.div`
 const CraneStyledHeader = styled(CraneCommonRow)`
   background-color: var(--color-grey-50);
   border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  border-bottom: 1px solid var(--color-yellow-200);
   color: var(--color-grey-600);
   font-weight: 600;
   letter-spacing: 0.4px;

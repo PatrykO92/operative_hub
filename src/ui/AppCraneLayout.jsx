@@ -2,11 +2,10 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "./Button";
-import OperatorHeader from "./OperatorHeader";
+import CraneHeader from "./CraneHeader";
 import Modal from "./Modal";
-import Maintenance from "../features/maintenance/MachineMaintenance";
 
-const StyledAppOperatorLayout = styled.div`
+const StyledAppCraneLayout = styled.div`
   display: grid;
   grid-template-rows: 5rem auto 8rem;
   height: 100vh;
@@ -26,23 +25,23 @@ const BottomMenu = styled.div`
   border-top: 1px solid var(--color-yellow-200);
 `;
 
-export default function AppOperatorLayout() {
+export default function AppCraneLayout() {
   return (
-    <StyledAppOperatorLayout>
-      <OperatorHeader />
+    <StyledAppCraneLayout>
+      <CraneHeader />
       <Main>
         <Outlet />
       </Main>
       <BottomMenu>
         <Modal>
-          <Modal.Open opens="maintenance_schedule">
-            <Button>Wartungsplan</Button>
+          <Modal.Open opens="report_a_problem">
+            <Button>Problem melden</Button>
           </Modal.Open>
-          <Modal.Window name="maintenance_schedule">
-            <Maintenance />
+          <Modal.Window name="report_a_problem">
+            <div>Hello Problem</div>
           </Modal.Window>
         </Modal>
       </BottomMenu>
-    </StyledAppOperatorLayout>
+    </StyledAppCraneLayout>
   );
 }
