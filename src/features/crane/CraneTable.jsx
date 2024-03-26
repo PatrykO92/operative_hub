@@ -5,6 +5,7 @@ import ErrorComponent from "../../ui/ErrorComponent";
 import { useEffect, useState } from "react";
 import CraneTableRow from "./CraneTableRow";
 import {
+  CraneEmpty,
   CraneStyledBody,
   CraneStyledHeader,
   CraneStyledTable,
@@ -73,6 +74,9 @@ export default function CraneTable() {
           <div></div>
         </CraneStyledHeader>
         <CraneStyledBody>
+          {ordersSortedByIndex.length === 0 && (
+            <CraneEmpty>Keine Daten zum Anzeigen</CraneEmpty>
+          )}
           {trucksSortedByPriority.map((truck) => {
             // Check if there are any orders for the current truck
             const hasOrders = ordersSortedByIndex.some(
