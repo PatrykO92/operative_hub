@@ -28,12 +28,12 @@ export default function UserAvatar() {
 
   if (isLoading) return <SpinnerMini />;
 
-  const { full_name, avatar } = user.user_metadata;
+  const { full_name, avatar_url } = user;
 
   return (
     <StyledUserAvatar>
       <Avatar
-        src={avatar || "default-user.jpg"}
+        src={avatar_url || "default-user.jpg"}
         alt={`Avatar of ${full_name}`}
       />
       <span>{full_name}</span>

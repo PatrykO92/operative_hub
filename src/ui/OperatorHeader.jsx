@@ -18,7 +18,7 @@ export default function OperatorHeader() {
 
   if (isLoading) return <SpinnerMini />;
 
-  const { full_name } = user.user_metadata;
+  const { full_name } = user;
 
   return (
     <Header>

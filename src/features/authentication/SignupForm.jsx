@@ -4,20 +4,26 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import useSignUp from "./useSignUp";
-import { StyledSelect } from "../../ui/Select";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
+  const navigate = useNavigate();
   const { signup, isPending } = useSignUp();
+
   const { register, formState, getValues, handleSubmit, reset } = useForm();
+
   const { errors } = formState;
 
-  function onSubmit({ fullName, email, password, appRole }) {
+  function onSubmit({ full_name, email, password }) {
     signup(
-      { fullName, email, password, appRole },
+      { full_name, email, password },
       {
         onSettled: () => {
           reset();
+        },
+        onSuccess: () => {
+          navigate("/successfully_registered");
         },
       }
     );
@@ -25,28 +31,15 @@ function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Rolle">
-        <StyledSelect id="appRole" {...register("appRole")}>
-          <option value="information_screen">Informationsbildschirm</option>
-          <option value="operator">Maschinenbediener</option>
-          <option value="crane">Kranfahrer</option>
-          <option value="foreman">Vorarbeiter</option>
-          <option value="mechanic">Mechaniker</option>
-          <option value="supervisor">Supervisor</option>
-          <option value="admin">Admin</option>
-        </StyledSelect>
-      </FormRow>
-
-      <FormRow label="Vollständiger Name" error={errors?.fullName?.message}>
+      <FormRow label="Vollständiger Name" error={errors?.full_name?.message}>
         <Input
           type="text"
-          id="fullName"
-          {...register("fullName", {
+          id="full_name"
+          {...register("full_name", {
             required: "Dieses Feld ist erforderlich",
           })}
         />
       </FormRow>
-
       <FormRow label="E-Mail Adresse" error={errors?.email?.message}>
         <Input
           type="email"
@@ -95,12 +88,8 @@ function SignupForm() {
       </FormRow>
 
       <FormRow>
-        <Button $variation="secondary" type="reset" disabled={isPending}>
-          Stornieren
-        </Button>
         <Button type="submit" disabled={isPending}>
-          {" "}
-          {!isPending ? "Neuen Benutzer anlegen" : <SpinnerMini />}
+          {!isPending ? "Neuen Benutzer erstellen" : <SpinnerMini />}
         </Button>
       </FormRow>
     </Form>

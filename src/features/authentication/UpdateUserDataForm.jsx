@@ -11,10 +11,7 @@ import useUpdateUser from "./useUpdateUser";
 
 function UpdateUserDataForm() {
   const {
-    user: {
-      email,
-      user_metadata: { full_name: currentFullName },
-    },
+    user: { id, email, full_name: currentFullName },
   } = useUser();
 
   const { updateUser, isUpdating } = useUpdateUser();
@@ -24,10 +21,9 @@ function UpdateUserDataForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(avatar);
     if (!fullName) return;
     updateUser(
-      { fullName, avatar },
+      { id, fullName, avatar },
       {
         onSuccess: () => {
           setAvatar(null);

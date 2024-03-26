@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Table from "../../ui/Table";
-import supabase from "../../services/supabase";
-import { useQuery } from "@tanstack/react-query";
+import useGetUserById from "../authentication/useGetUserById";
 
 const Cell = styled.div`
   font-size: 1.3rem;
@@ -11,25 +10,9 @@ const Cell = styled.div`
 `;
 
 function MaintenanceRow({ entry, fullList }) {
-  const { created_at, type, who, machine } = entry;
+  const { created_at, type, who, user_id } = entry;
 
-  //TO REFRACTOR
-
-  // Fetch user's name based on machine ID
-  const { data: machineData, isLoading: isMachineLoading } = useQuery({
-    queryKey: ["machine", machine],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("users")
-        .select("full_name")
-        .eq("id", machine)
-        .single(); // Assuming there's only one user with the given machine ID
-      if (error) {
-        throw new Error(error.message);
-      }
-      return data;
-    },
-  });
+  const { user, isUserLoading } = useGetUserById(user_id);
 
   return (
     <>
@@ -39,9 +22,7 @@ function MaintenanceRow({ entry, fullList }) {
         <Cell>{who}</Cell>
         {fullList && (
           <Cell>
-            {isMachineLoading
-              ? "Loading..."
-              : machineData?.full_name || "Unknown"}
+            {isUserLoading ? "Loading..." : user?.full_name || "Unknown"}
           </Cell>
         )}
       </Table.Row>

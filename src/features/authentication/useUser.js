@@ -7,7 +7,5 @@ export function useUser() {
     queryFn: getCurrentUser,
   });
 
-  const appRole = user?.user_metadata?.app_role;
-
-  return { user, isLoading, isAuth: user?.role === "authenticated", appRole };
+  return { user, isLoading };
 }

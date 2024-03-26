@@ -22,6 +22,8 @@ import InformationBoard from "./pages/InformationBoard";
 import AppOperatorLayout from "./ui/AppOperatorLayout";
 import LogoutPage from "./pages/LogoutPage";
 import Maintenance from "./pages/Maintenance";
+import Signup from "./pages/Signup";
+import SuccessfullyRegistered from "./pages/SuccessfullyRegistered";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +69,11 @@ export default function App() {
             <Route path="crane" element={<Crane />} />
           </Route>
 
+          <Route
+            path="successfully_registered"
+            element={<SuccessfullyRegistered />}
+          />
+          <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<LogoutPage />} />
           <Route path="*" element={<PageNotFound />} />

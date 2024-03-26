@@ -14,20 +14,15 @@ const FullPage = styled.div`
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
-  const { isLoading, isAuth, appRole } = useUser();
-
-  const isAllowAdminDashboard =
-    appRole === "admin" ||
-    appRole === "supervisor" ||
-    appRole === "mechanic" ||
-    appRole === "foreman";
+  const { user, isLoading } = useUser();
 
   useEffect(() => {
-    if (!isAuth && !isLoading) navigate("/login");
-    if (appRole === "operator") navigate("/operator");
-    if (appRole === "crane") navigate("/crane");
-    if (appRole === "information_screen") navigate("/information_board");
-  }, [isAuth, appRole, isLoading, navigate]);
+    if (!user && !isLoading) navigate("/login");
+    if (user?.app_role === "operator" && !isLoading) navigate("/operator");
+    if (user?.app_role === "crane" && !isLoading) navigate("/crane");
+    if (user?.app_role === "information_screen" && !isLoading)
+      navigate("/information_board");
+  }, [user, isLoading, navigate]);
 
   if (isLoading)
     return (
@@ -36,5 +31,11 @@ export default function ProtectedRoute({ children }) {
       </FullPage>
     );
 
-  if (isAuth && isAllowAdminDashboard) return children;
+  const isAllowAdminDashboard =
+    user?.app_role === "admin" ||
+    user?.app_role === "supervisor" ||
+    user?.app_role === "mechanic" ||
+    user?.app_role === "foreman";
+
+  if (isAllowAdminDashboard) return children;
 }

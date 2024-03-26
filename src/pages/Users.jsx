@@ -1,11 +1,11 @@
-import SignupForm from "../features/authentication/SignupForm";
+import ListOfUsers from "../features/authentication/ListOfUsers";
 import Heading from "../ui/Heading";
 
 function NewUsers() {
   return (
     <>
-      <Heading as="h1">Einen neuen Benutzer anlegen</Heading>
-      <SignupForm />
+      <Heading as="h1">Benutzer</Heading>
+      <ListOfUsers />
     </>
   );
 }

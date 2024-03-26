@@ -16,7 +16,8 @@ export async function getMaintenanceList() {
 export async function addMaintenance(formData) {
   const { data: newEntry, error } = await supabase
     .from("maintenance")
-    .insert([formData]);
+    .insert([formData])
+    .single();
 
   if (error) {
     console.error("Error adding row:", error.message);
