@@ -80,7 +80,7 @@ function Box({ color }) {
       <Modal.Window name="delete-color">
         <ConfirmDelete
           disabled={isDeleting}
-          resource={`Farbe`}
+          resource={color.label}
           onConfirm={() => removeColor(color.id)}
         >
           <SquareColor

@@ -66,6 +66,8 @@ const ColorPicker = () => {
           main_color: "#000000",
           secondary_color: "#000000",
           label_color: "#ffffff",
+          quantity: "",
+          label: "",
         });
       },
     });
