@@ -61,7 +61,6 @@ export default function App() {
 
           <Route element={<AppOperatorLayout />}>
             <Route path="operator" element={<Operator />} />
-
             <Route path="information_board" element={<InformationBoard />} />
           </Route>
 

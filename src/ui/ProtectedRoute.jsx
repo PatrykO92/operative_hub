@@ -17,11 +17,15 @@ export default function ProtectedRoute({ children }) {
   const { user, isLoading } = useUser();
 
   useEffect(() => {
-    if (!user && !isLoading) navigate("/login");
-    if (user?.app_role === "operator" && !isLoading) navigate("/operator");
-    if (user?.app_role === "crane" && !isLoading) navigate("/crane");
-    if (user?.app_role === "information_screen" && !isLoading)
-      navigate("/information_board");
+    if (!isLoading && !user) {
+      navigate("/login");
+    } else if (!isLoading) {
+      if (!user?.app_role) navigate("successfully_registered");
+      if (user?.app_role === "operator") navigate("/operator");
+      if (user?.app_role === "crane") navigate("/crane");
+      if (user?.app_role === "information_board")
+        navigate("/information_board");
+    }
   }, [user, isLoading, navigate]);
 
   if (isLoading)
