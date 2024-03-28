@@ -7,7 +7,7 @@ export default function useGetUserById(id) {
     isLoading: isUserLoading,
     error: userError,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", id],
     queryFn: () => getUserByID(id),
   });
 

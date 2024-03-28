@@ -11,7 +11,6 @@ const Cell = styled.div`
 
 function MaintenanceRow({ entry, fullList }) {
   const { created_at, type, who, user_id } = entry;
-
   const { user, isUserLoading } = useGetUserById(user_id);
 
   return (
@@ -22,7 +21,7 @@ function MaintenanceRow({ entry, fullList }) {
         <Cell>{who}</Cell>
         {fullList && (
           <Cell>
-            {isUserLoading ? "Loading..." : user?.full_name || "Unknown"}
+            {isUserLoading ? "Wird geladen..." : user?.full_name || "Unbekannt"}
           </Cell>
         )}
       </Table.Row>
