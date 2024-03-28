@@ -11,8 +11,8 @@ export default function ListOfUsers() {
   return (
     <Table $columns="1fr 1fr">
       <Table.Header>
-        <div>Full_name</div>
-        <div>App_role</div>
+        <div>Vollständiger Name</div>
+        <div>App-Rollen</div>
       </Table.Header>
       <Table.Body
         data={users}

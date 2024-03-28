@@ -119,3 +119,15 @@ export async function getUserByID(id) {
   }
   return data;
 }
+
+export async function updateUserRoleById({ id, newRole }) {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({ app_role: newRole })
+    .eq("id", id)
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

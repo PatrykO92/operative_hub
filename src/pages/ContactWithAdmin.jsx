@@ -14,16 +14,12 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-50);
 `;
 
-export default function SuccessfullyRegistered() {
+export default function ContactWithAdmin() {
   return (
     <LoginLayout>
       <Logo />
-      <Heading as="h4">Erfolgreich registriert</Heading>
-      <p>
-        Die Registrierung war erfolgreich, überprüfen Sie Ihre E-Mail, um Ihr
-        Konto zu aktivieren. Das Konto muss auch vom Administrator aktiviert
-        werden.
-      </p>
+      <Heading as="h4">Kontaktieren Sie den Administrator</Heading>
+      <p>Das Konto muss vom Administrator aktiviert werden.</p>
       <StyledLink to="/login">Anmeldung</StyledLink>
     </LoginLayout>
   );

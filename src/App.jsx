@@ -24,6 +24,7 @@ import LogoutPage from "./pages/LogoutPage";
 import Maintenance from "./pages/Maintenance";
 import Signup from "./pages/Signup";
 import SuccessfullyRegistered from "./pages/SuccessfullyRegistered";
+import ContactWithAdmin from "./pages/ContactWithAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -72,6 +73,7 @@ export default function App() {
             path="successfully_registered"
             element={<SuccessfullyRegistered />}
           />
+          <Route path="contact_admin" element={<ContactWithAdmin />} />
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<LogoutPage />} />
