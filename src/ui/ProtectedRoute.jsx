@@ -21,6 +21,7 @@ export default function ProtectedRoute({ children }) {
       navigate("/login");
     } else if (!isLoading) {
       if (!user?.app_role) navigate("successfully_registered");
+      if (user?.app_role === "not_assigned") navigate("contact_admin");
       if (user?.app_role === "operator") navigate("/operator");
       if (user?.app_role === "crane") navigate("/crane");
       if (user?.app_role === "information_board")
