@@ -25,6 +25,7 @@ import Maintenance from "./pages/Maintenance";
 import Signup from "./pages/Signup";
 import SuccessfullyRegistered from "./pages/SuccessfullyRegistered";
 import ContactWithAdmin from "./pages/ContactWithAdmin";
+import OnlineStatus from "./ui/OnlineStatus";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,67 +37,70 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+    <>
+      <OnlineStatus />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
 
-      <GlobalStyles />
+        <GlobalStyles />
 
-      <BrowserRouter>
-        <Routes>
-          <Route
-            element={
-              <ProtectedRoute>
-                <AppAdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="trucks_loading" element={<TrucksLoading />} />
-            <Route path="trucks_management" element={<TrucksManagement />} />
-            <Route path="maintenance" element={<Maintenance />} />
-            <Route path="users" element={<Users />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="account" element={<Account />} />
-          </Route>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppAdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate replace to="dashboard" />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="trucks_loading" element={<TrucksLoading />} />
+              <Route path="trucks_management" element={<TrucksManagement />} />
+              <Route path="maintenance" element={<Maintenance />} />
+              <Route path="users" element={<Users />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="account" element={<Account />} />
+            </Route>
 
-          <Route element={<AppOperatorLayout />}>
-            <Route path="operator" element={<Operator />} />
-            <Route path="information_board" element={<InformationBoard />} />
-          </Route>
+            <Route element={<AppOperatorLayout />}>
+              <Route path="operator" element={<Operator />} />
+              <Route path="information_board" element={<InformationBoard />} />
+            </Route>
 
-          <Route element={<AppCraneLayout />}>
-            <Route path="crane" element={<Crane />} />
-          </Route>
+            <Route element={<AppCraneLayout />}>
+              <Route path="crane" element={<Crane />} />
+            </Route>
 
-          <Route
-            path="successfully_registered"
-            element={<SuccessfullyRegistered />}
-          />
-          <Route path="contact_admin" element={<ContactWithAdmin />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="login" element={<Login />} />
-          <Route path="logout" element={<LogoutPage />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route
+              path="successfully_registered"
+              element={<SuccessfullyRegistered />}
+            />
+            <Route path="contact_admin" element={<ContactWithAdmin />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="logout" element={<LogoutPage />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
 
-      <Toaster
-        position="top-center"
-        gutter={20}
-        containerStyle={{ margin: "20px" }}
-        toastOptions={{
-          success: { duration: 2000 },
-          error: { duration: 5000 },
-          style: {
-            fontSize: "16px",
-            maxWidth: "400px",
-            padding: "16px 24px",
-            backgroundColor: "var(--color-grey-0",
-            color: "var(--color-grey-700",
-          },
-        }}
-      />
-    </QueryClientProvider>
+        <Toaster
+          position="top-center"
+          gutter={20}
+          containerStyle={{ margin: "20px" }}
+          toastOptions={{
+            success: { duration: 2000 },
+            error: { duration: 5000 },
+            style: {
+              fontSize: "16px",
+              maxWidth: "400px",
+              padding: "16px 24px",
+              backgroundColor: "var(--color-grey-0",
+              color: "var(--color-grey-700",
+            },
+          }}
+        />
+      </QueryClientProvider>
+    </>
   );
 }
