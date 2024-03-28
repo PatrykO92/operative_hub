@@ -1,19 +1,5 @@
 import styled from "styled-components";
 import toast from "react-hot-toast";
-
-import { useEffect, useState } from "react";
-
-import TruckContainer from "./TruckContainer";
-import Button from "../../ui/Button";
-import Order from "./ManagmentOrder";
-import Spinner from "../../ui/Spinner";
-import { useGetOrdersList } from "../../hooks/useGetOrdersList";
-import useUpdateMultipleOrders from "../../hooks/useUpdateMultipleOrders";
-import Modal from "../../ui/Modal";
-import CreateNewTruck from "./CreateNewTruck";
-import useCreateNewTruck from "./useCreateNewTruck";
-import useGetTrucksList from "./useGetTrucksList";
-import { useDeleteTruck } from "./useDeleteTruck";
 import { useSearchParams } from "react-router-dom";
 import {
   DndContext,
@@ -23,7 +9,21 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
+
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
+import Button from "../../ui/Button";
+import Spinner from "../../ui/Spinner";
+import Modal from "../../ui/Modal";
+import Order from "./ManagmentOrder";
+import TruckContainer from "./TruckContainer";
+import CreateNewTruck from "./CreateNewTruck";
+import useCreateNewTruck from "./useCreateNewTruck";
+import useGetTrucksList from "./useGetTrucksList";
+import { useGetOrdersList } from "../../hooks/useGetOrdersList";
+import { useDeleteTruck } from "./useDeleteTruck";
+import useUpdateMultipleOrders from "../../hooks/useUpdateMultipleOrders";
 
 const StyledOperations = styled.div`
   margin: 0 auto;
@@ -92,6 +92,16 @@ export default function TrucksManagementPanel() {
   }
 
   function createNewTruck(newTruck) {
+    const checkIfSameTruckAlreadyExists = trucks.some(
+      (truck) =>
+        truck.label === newTruck.label && truck.load_date === newTruck.load_date
+    );
+
+    if (checkIfSameTruckAlreadyExists) {
+      toast.error("Dieser LKW ist bereits hinzugefügt");
+      return;
+    }
+
     createNewTruckHook(newTruck, {
       onSuccess: () => setTrucks((oldTrucks) => [...oldTrucks, newTruck]),
     });

@@ -99,6 +99,10 @@ export default function TruckContainer({
               <span>Fahrer: </span>
               {truck.label}
             </div>
+            <div>
+              <span>Info: </span>
+              {truck.info ? truck.info : "-"}
+            </div>
           </>
         )}
 
