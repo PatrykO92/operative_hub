@@ -1,3 +1,5 @@
+import { FaTruckLoading } from "react-icons/fa";
+
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
 import { useEditOrder } from "../../hooks/useEditOrder";
@@ -44,7 +46,9 @@ function CraneTableRow({ order }) {
         <CraneCell>
           <Modal>
             <Modal.Open opens="change-to-loaded">
-              <Button $size="small">Geladen</Button>
+              <Button $size="small">
+                <FaTruckLoading size="2.4rem" />
+              </Button>
             </Modal.Open>
             <Modal.Window name="change-to-loaded">
               <ConfirmTruckLoaded

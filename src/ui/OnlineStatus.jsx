@@ -13,7 +13,7 @@ const StyledOnlineStatus = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background-color: var(--color-brand-500);
+  background-color: var(--color-brand-50);
   font-weight: 700;
   font-size: 3rem;
   color: var(--color-brand-700);
