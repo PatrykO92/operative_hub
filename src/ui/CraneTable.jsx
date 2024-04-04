@@ -14,7 +14,7 @@ const CraneCommonRow = styled.div`
 
   grid-template-columns:
     minmax(8rem, 0.4fr) minmax(7rem, 0.4fr) minmax(14rem, 1.5fr)
-    minmax(14rem, 1.5fr) minmax(9.5rem, 0.4fr) minmax(7rem, 0.4fr) minmax(4rem, 0.1fr);
+    minmax(14rem, 1.5fr) minmax(9.5rem, 0.4fr) minmax(7rem, 0.2fr) minmax(4rem, 0.1fr);
 
   padding: 0.5rem 1.2rem;
   transition: none;
