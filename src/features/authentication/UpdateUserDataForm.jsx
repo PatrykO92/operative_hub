@@ -43,7 +43,7 @@ function UpdateUserDataForm() {
       <FormRow label="Email address">
         <Input value={email} disabled />
       </FormRow>
-      <FormRow label="Full name">
+      <FormRow label="Vollständiger Name">
         <Input
           disabled={isUpdating}
           type="text"
@@ -52,7 +52,7 @@ function UpdateUserDataForm() {
           id="fullName"
         />
       </FormRow>
-      <FormRow label="Avatar image">
+      <FormRow label="Avatar-Bild">
         <FileInput
           type="file"
           disabled={isUpdating}

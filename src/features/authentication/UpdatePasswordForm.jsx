@@ -39,7 +39,7 @@ function UpdatePasswordForm() {
       </FormRow>
 
       <FormRow
-        label="Confirm password"
+        label="Bestätige das Passwort"
         error={errors?.passwordConfirm?.message}
       >
         <Input

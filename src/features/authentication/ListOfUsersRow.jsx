@@ -7,9 +7,9 @@ import { useState } from "react";
 const Cell = styled.div`
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--color-grey-600);
+  color: var(--color-grey-700);
   font-family: "Sono";
-  padding: 0.5rem 0;
+  margin-top: 0.5rem;
 `;
 
 export default function ListOfUsersRow({ user }) {
