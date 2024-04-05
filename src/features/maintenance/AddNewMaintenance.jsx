@@ -60,7 +60,7 @@ const RadioLabel = styled.label`
   ${(props) =>
     props.$outline &&
     css`
-      border: 1px solid var(--color-brand-700);
+      border: 1px solid var(--color-brand-500);
     `}
 `;
 

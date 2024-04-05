@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import { CiCreditCard2 } from "react-icons/ci";
 
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useGetColorById } from "../../hooks/useGetColorById";
 import SquareColor from "../../ui/SquareColor";
 import Table from "../../ui/Table";
+import Modal from "../../ui/Modal";
+import OrderLabel from "./OrderLabel";
 
 const Cell = styled.div`
   font-size: 1.3rem;
@@ -45,6 +48,15 @@ function OperatorTableRow({ order }) {
             $labelColor={fetchedColor.label_color}
           />
         </Cell>
+
+        <Modal>
+          <Modal.Open>
+            <CiCreditCard2 size="3.5rem" />
+          </Modal.Open>
+          <Modal.Window>
+            <OrderLabel order={order} />
+          </Modal.Window>
+        </Modal>
       </Table.Row>
     </>
   );

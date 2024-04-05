@@ -10,7 +10,11 @@ export default function OperatorTable() {
 
   return (
     <>
-      <Table $columns={"0.4fr 0.4fr 1.5fr 1.5fr 0.4fr 0.4fr 0.4fr"}>
+      <Table
+        $columns={
+          "minmax(7rem, 0.4fr) minmax(6rem, 0.4fr) minmax(14rem, 1.5fr) minmax(14rem, 1.5fr) minmax(8.5rem, 0.4fr) minmax(4rem, 0.2fr) minmax(4rem, 0.1fr) minmax(3rem, 0.1fr)"
+        }
+      >
         <Table.Header>
           <div>Projekt</div>
           <div>Fuhre</div>
