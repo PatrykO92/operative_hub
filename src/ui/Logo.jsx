@@ -13,7 +13,7 @@ const Img = styled.img`
 function Logo({ height = "9.6rem" }) {
   return (
     <StyledLogo>
-      <Img height={height} src="/logo-light.svg" alt="Logo" />
+      <Img height={height} src="/logo.png" alt="Logo" />
     </StyledLogo>
   );
 }
