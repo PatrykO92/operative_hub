@@ -16,7 +16,7 @@ function MaintenanceRow({ entry, fullList }) {
   return (
     <>
       <Table.Row>
-        <Cell>{new Date(created_at).toLocaleDateString()}</Cell>
+        <Cell>{new Date(created_at).toLocaleString()}</Cell>
         <Cell>{type}</Cell>
         <Cell>{who}</Cell>
         {fullList && (

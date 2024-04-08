@@ -72,7 +72,7 @@ The Operative Hub is a simple yet effective solution designed to streamline the 
 - [Vite][Vite-url]
 - [TanStack Query][tanstack-url]
 - [Styled Components][styled-components-url]
-- [Supabase][styled-components-url]
+- [Supabase][supabase-url]
 - [DragAndDrop Kit][dndkit-url]
 - [React Hook Form][react-hook-form-url]
 

@@ -26,6 +26,7 @@ import Signup from "./pages/Signup";
 import SuccessfullyRegistered from "./pages/SuccessfullyRegistered";
 import ContactWithAdmin from "./pages/ContactWithAdmin";
 import OnlineStatus from "./ui/OnlineStatus";
+import ProblemTracking from "./pages/ProblemTracking";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +59,7 @@ export default function App() {
               <Route path="trucks_loading" element={<TrucksLoading />} />
               <Route path="trucks_management" element={<TrucksManagement />} />
               <Route path="maintenance" element={<Maintenance />} />
+              <Route path="problem_tracking" element={<ProblemTracking />} />
               <Route path="users" element={<Users />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
