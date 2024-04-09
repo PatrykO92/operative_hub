@@ -4,7 +4,7 @@ import { removeColorById } from "../../services/apiColorsList";
 
 export function useRemoveColorById() {
   const queryClient = useQueryClient();
-  const { mutate: removeColor, isLoading: isDeleting } = useMutation({
+  const { mutate: removeColor, isPending: isDeleting } = useMutation({
     mutationFn: removeColorById,
     onSuccess: () => {
       toast.success("Farbe erfolgreich entfernt");

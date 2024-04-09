@@ -10,3 +10,16 @@ export async function getListOfProblems() {
 
   return data;
 }
+
+export async function addProblem(formData) {
+  const { data: newColor, error } = await supabase
+    .from("problem_tracking")
+    .insert([formData]);
+
+  if (error) {
+    console.error("Error adding row:", error.message);
+    throw new Error("Es konnte kein Problem hinzugefügt werden");
+  }
+
+  return newColor;
+}

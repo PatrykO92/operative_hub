@@ -1,6 +1,6 @@
 import Modal from "../../ui/Modal";
 import Button from "../../ui/Button";
-import AddProblem from "./AddProblem";
+import AddProblemForm from "./AddProblemForm";
 
 export default function AddNewProblemModal() {
   return (
@@ -9,7 +9,7 @@ export default function AddNewProblemModal() {
         <Button>Add problem</Button>
       </Modal.Open>
       <Modal.Window name="add_problem">
-        <AddProblem />
+        <AddProblemForm />
       </Modal.Window>
     </Modal>
   );
