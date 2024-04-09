@@ -4,7 +4,7 @@ import { addColorToList } from "../../services/apiColorsList";
 
 export function useAddNewColor() {
   const queryClient = useQueryClient();
-  const { mutate: addNewColor, isLoading: isCreating } = useMutation({
+  const { mutate: addNewColor, isPending: isCreating } = useMutation({
     mutationFn: addColorToList,
     onSuccess: () => {
       toast.success("Neue Farbe hinzugefügt");
