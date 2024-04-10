@@ -1,8 +1,12 @@
+import { useQueryClient } from "@tanstack/react-query";
+
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import { useGetOrdersList } from "../../hooks/useGetOrdersList";
 import useGetTrucksList from "../trucks_management/useGetTrucksList";
 import Spinner from "../../ui/Spinner";
 import ErrorComponent from "../../ui/ErrorComponent";
-import { useEffect, useState } from "react";
 import CraneTableRow from "./CraneTableRow";
 import {
   CraneEmpty,
@@ -12,9 +16,9 @@ import {
   CraneStyledTruckContainer,
   CraneStyledTruckContainerLabel,
 } from "../../ui/CraneTable";
-import { useSearchParams } from "react-router-dom";
 
 export default function CraneTable() {
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const [trucks, setTrucks] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -32,6 +36,10 @@ export default function CraneTable() {
     if (!isLoadingOrders) setOrders(fetchedOrders);
     if (!isLoadingTrucksList) setTrucks(trucksList);
   }, [fetchedOrders, trucksList, isLoadingOrders, isLoadingTrucksList]);
+
+  useEffect(() => {
+    queryClient.invalidateQueries("trucks");
+  }, [orders, queryClient]);
 
   if (isLoadingOrders || isLoadingTrucksList) return <Spinner />;
 
