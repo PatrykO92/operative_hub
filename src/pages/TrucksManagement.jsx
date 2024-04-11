@@ -17,7 +17,7 @@ export default function TrucksManagement() {
   return (
     <>
       <StyledTrucksManagment>
-        <Heading as="h1">LKW-Management</Heading>
+        <Heading as="h1">LKW-Verwaltung</Heading>
         <TruckManagmentOperations />
       </StyledTrucksManagment>
       <Row>

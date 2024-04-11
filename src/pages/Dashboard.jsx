@@ -1,11 +1,11 @@
 import Heading from "../ui/Heading";
-import UnderConstruction from "../ui/UnderConstruction";
+import Info from "../ui/Info";
 
 export default function Dashboard() {
   return (
     <>
       <Heading as="h2">Willkommen im Operative Hub</Heading>
-      <UnderConstruction />
+      <Info />
     </>
   );
 }
