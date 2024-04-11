@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-import Button from "./Button";
 import CraneHeader from "./CraneHeader";
-import Modal from "./Modal";
+import AddNewProblemModal from "../features/problem_tracking/AddNewProblemModal";
 
 const StyledAppCraneLayout = styled.div`
   display: grid;
@@ -33,14 +32,7 @@ export default function AppCraneLayout() {
         <Outlet />
       </Main>
       <BottomMenu>
-        <Modal>
-          <Modal.Open opens="report_a_problem">
-            <Button>Problem melden</Button>
-          </Modal.Open>
-          <Modal.Window name="report_a_problem">
-            <div>Hello Problem</div>
-          </Modal.Window>
-        </Modal>
+        <AddNewProblemModal />
       </BottomMenu>
     </StyledAppCraneLayout>
   );

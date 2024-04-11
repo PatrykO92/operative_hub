@@ -76,7 +76,7 @@ export default function MainNav() {
         <li>
           <StyledNavLink to="/trucks_management">
             <FaTruck />
-            <span>LKWs-Management</span>
+            <span>LKWs-Verwaltung</span>
           </StyledNavLink>
         </li>
 

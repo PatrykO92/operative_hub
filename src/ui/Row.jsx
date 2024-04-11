@@ -16,6 +16,13 @@ const Row = styled.div`
       flex-direction: column;
       gap: 1.6rem;
     `}
+
+    ${(props) =>
+    props.type === "start" &&
+    css`
+      flex-direction: column;
+      align-items: flex-start;
+    `}
 `;
 
 Row.defaultProps = {

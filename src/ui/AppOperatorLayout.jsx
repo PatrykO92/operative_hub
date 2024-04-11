@@ -5,6 +5,7 @@ import Button from "./Button";
 import OperatorHeader from "./OperatorHeader";
 import Modal from "./Modal";
 import Maintenance from "../features/maintenance/MachineMaintenance";
+import AddNewProblemModal from "../features/problem_tracking/AddNewProblemModal";
 
 const StyledAppOperatorLayout = styled.div`
   display: grid;
@@ -34,6 +35,7 @@ export default function AppOperatorLayout() {
         <Outlet />
       </Main>
       <BottomMenu>
+        <AddNewProblemModal />
         <Modal>
           <Modal.Open opens="maintenance_schedule">
             <Button>Wartungsplan</Button>
