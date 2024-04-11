@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import SquareColor from "../../ui/SquareColor";
 import ColorInput from "../../ui/ColorInput";
 import Button from "../../ui/Button";
-import Heading from "../../ui/Heading";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
@@ -75,9 +74,12 @@ const ColorPicker = () => {
 
   return (
     <StyledColorPicker>
-      <Heading as="h3" onClick={() => setShowColorPicker((oldVal) => !oldVal)}>
+      <Button
+        $size="small"
+        onClick={() => setShowColorPicker((oldVal) => !oldVal)}
+      >
         Neue Farbe {showColorPicker ? "-" : "+"}
-      </Heading>
+      </Button>
 
       {showColorPicker && (
         <>

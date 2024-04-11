@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRemoveColorById } from "./useRemoveColorById";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import ColorPicker from "./ColorPicker";
 
 const Container = styled.div`
   background-color: var(--color-grey-0);
@@ -52,11 +53,14 @@ export default function ColorList() {
       </Heading>
 
       {showColorList && (
-        <StyledColorList>
-          {colors.map((color) => (
-            <Box key={color.id} color={color} />
-          ))}
-        </StyledColorList>
+        <>
+          <StyledColorList>
+            {colors.map((color) => (
+              <Box key={color.id} color={color} />
+            ))}
+          </StyledColorList>
+          <ColorPicker />
+        </>
       )}
     </Container>
   );
