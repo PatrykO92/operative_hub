@@ -7,7 +7,7 @@ export default function AddOrder() {
     <div>
       <Modal>
         <Modal.Open opens="order-form">
-          <Button>Neue Bestellung hinzufügen</Button>
+          <Button $size="smaller">Neue Bestellung hinzufügen</Button>
         </Modal.Open>
         <Modal.Window name="order-form">
           <CreateEditOrderForm />

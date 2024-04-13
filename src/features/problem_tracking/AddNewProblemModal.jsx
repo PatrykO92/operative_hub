@@ -8,7 +8,7 @@ export default function AddNewProblemModal() {
     <Row type="start">
       <Modal>
         <Modal.Open opens="add_problem">
-          <Button>Add problem</Button>
+          <Button $size="smaller">Problem hinzufügen</Button>
         </Modal.Open>
         <Modal.Window name="add_problem">
           <AddProblemForm />

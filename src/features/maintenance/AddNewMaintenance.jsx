@@ -42,7 +42,7 @@ const Container = styled.div`
   justify-content: space-evenly;
 
   ${(props) =>
-    props.$centerd &&
+    props.$centered &&
     css`
       justify-content: center;
       gap: 1rem;
@@ -175,7 +175,7 @@ export default function AddNewMaintenance() {
               placeholder="z. B. Thomas Müller"
             />
           </Container>
-          <Container $centerd>
+          <Container $centered>
             <Button
               type="button"
               $variation="secondary"

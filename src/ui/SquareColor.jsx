@@ -24,4 +24,5 @@ const StyledSquareColor = styled.div.attrs((props) => ({
   font-weight: 700;
   border-style: solid;
   border-radius: var(--border-radius-tiny);
+  outline: 1px solid var(--color-grey-999);
 `;

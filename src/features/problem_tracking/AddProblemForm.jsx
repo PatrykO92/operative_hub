@@ -3,8 +3,6 @@ import { styled } from "styled-components";
 import toast from "react-hot-toast";
 
 import { useProblem } from "./useProblem";
-
-import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -34,6 +32,7 @@ export default function AddProblemForm({ onCloseModal }) {
     <StyledAddProblemForm>
       <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
         <Heading as="h3">Melden Sie ein neues Problem</Heading>
+        <br />
         <FormRow label="Titel">
           <Input
             required
@@ -51,7 +50,8 @@ export default function AddProblemForm({ onCloseModal }) {
             {...register("description")}
           />
         </FormRow>
-        <Row type="horizontal">
+        <br />
+        <FormRow>
           <Button
             $variation="secondary"
             disabled={isCreating}
@@ -62,7 +62,7 @@ export default function AddProblemForm({ onCloseModal }) {
           <Button disabled={isCreating} type="submit">
             Problem einreichen
           </Button>
-        </Row>
+        </FormRow>
       </Form>
     </StyledAddProblemForm>
   );

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
+
 import useGetColors from "../../hooks/useGetColors";
 import Spinner from "../../ui/Spinner";
 import Heading from "../../ui/Heading";
@@ -49,7 +51,7 @@ export default function ColorList() {
   return (
     <Container>
       <Heading as="h3" onClick={() => setShowColorList((oldVal) => !oldVal)}>
-        Verfügbare Farben {showColorList ? "-" : "+"}
+        Verfügbare Farben {showColorList ? <FaMinusCircle /> : <FaPlusCircle />}
       </Heading>
 
       {showColorList && (
