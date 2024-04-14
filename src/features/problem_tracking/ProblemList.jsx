@@ -9,7 +9,7 @@ export default function ProblemList() {
   if (isLoadingProblems) return <Spinner />;
 
   return (
-    <Table $columns="1fr 1fr 1fr 1fr 1fr">
+    <Table $columns="0.5fr 0.5fr 0.7fr 1.9fr 0.2fr 0.1fr">
       <Table.Header>
         <div>Datum</div>
         <div>Wer</div>

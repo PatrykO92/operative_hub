@@ -23,3 +23,18 @@ export async function addProblem(formData) {
 
   return newColor;
 }
+
+export async function updateProblem({ id, value }) {
+  const { data, error } = await supabase
+    .from("problem_tracking")
+    .update(value)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error("Error updating row:", error.message);
+    throw new Error("Probleme bei der Bearbeitung des Antrags");
+  }
+
+  return data;
+}
