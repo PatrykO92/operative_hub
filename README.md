@@ -14,7 +14,7 @@
     Optimizes truck management, enhances loading efficiency, and supports maintenance schedules and production issue tracking.
     <br />
     <br />
-    <a href="https://lzr-operative-hub.vercel.app/">View Demo</a>
+    <a href="https://operative-hub-test.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/PatrykO92/operative_hub/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
