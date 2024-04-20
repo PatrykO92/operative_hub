@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-import Button from "./Button";
 import OperatorHeader from "./OperatorHeader";
-import Modal from "./Modal";
-import Maintenance from "../features/maintenance/MachineMaintenance";
+
 import AddNewProblemModal from "../features/problem_tracking/AddNewProblemModal";
+import AddNewMaintenanceModal from "../features/maintenance/AddNewMaintenanceModal";
 
 const StyledAppOperatorLayout = styled.div`
   display: grid;
@@ -36,14 +35,7 @@ export default function AppOperatorLayout() {
       </Main>
       <BottomMenu>
         <AddNewProblemModal />
-        <Modal>
-          <Modal.Open opens="maintenance_schedule">
-            <Button>Wartungsplan</Button>
-          </Modal.Open>
-          <Modal.Window name="maintenance_schedule">
-            <Maintenance />
-          </Modal.Window>
-        </Modal>
+        <AddNewMaintenanceModal />
       </BottomMenu>
     </StyledAppOperatorLayout>
   );
