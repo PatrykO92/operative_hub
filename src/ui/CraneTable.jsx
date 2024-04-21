@@ -82,7 +82,7 @@ const CraneCell = styled.div`
   font-size: 1.3rem;
   font-weight: 600;
   overflow-x: scroll;
-
+  padding: 0.2rem;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
