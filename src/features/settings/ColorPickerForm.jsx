@@ -58,6 +58,7 @@ export default function ColorPickerForm({ onCloseModal }) {
           quantity: "",
           label: "",
         });
+        onCloseModal();
       },
     });
   };
