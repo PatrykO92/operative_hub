@@ -12,7 +12,7 @@ const StyledTestIndicator = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 150rem;
+  max-width: 80rem;
   gap: 2rem;
 `;
 
@@ -22,9 +22,7 @@ export default function TestInfo() {
   if (testUser)
     return (
       <StyledTestIndicator>
-        <h5>
-          You are on the test page, click the button next to it to learn more.
-        </h5>
+        <h5>You are on the test page, click the button to learn more.</h5>
         <Modal defaultOpen="test-window">
           <Modal.Open opens="test-window">
             <Button $variation="green" $size="small">
